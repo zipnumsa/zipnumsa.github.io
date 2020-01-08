@@ -1,10 +1,10 @@
 <?php
-// ### º¸°ü¿ë Á¤Àû ÆäÀÌÁö °ü·Ã ¿É¼Ç ###############################################################################
+// ### ë³´ê´€ìš© ì •ì  í˜ì´ì§€ ê´€ë ¨ ì˜µì…˜ ###############################################################################
 $m_global_encoding = "UTF-8"; // Encoding option
 $m_static_flag=1;
 $m_force_dynamic_flag=1;
 
-// ### µû¿ÈÇ¥ ¹®ÀÚ¿¡ ´ëÇÑ Ã³¸® ¿É¼Ç ¹× ÀÓ½Ã º¸°ü¿ë Àü¿ª º¯¼ö ¼±¾ğ ####################################################
+// ### ë”°ì˜´í‘œ ë¬¸ìì— ëŒ€í•œ ì²˜ë¦¬ ì˜µì…˜ ë° ì„ì‹œ ë³´ê´€ìš© ì „ì—­ ë³€ìˆ˜ ì„ ì–¸ ####################################################
 ini_set('magic_quotes_runtime', 0);
 global $global_string_temp;
 $global_string_temp = "_";
@@ -13,8 +13,8 @@ $m_static_auto_replace=0;
 
 // ###################################################################################################################
 
-// ### ¹æ¹®ÀÚ ±â·Ï ·Î±× ³²±è #########################################################################################
-// ±âÅ¸µîµî
+// ### ë°©ë¬¸ì ê¸°ë¡ ë¡œê·¸ ë‚¨ê¹€ #########################################################################################
+// ê¸°íƒ€ë“±ë“±
 $from_whom = $HTTP_SERVER_VARS['REMOTE_ADDR']; 
 $to_where  = $HTTP_SERVER_VARS['REQUEST_URI'];
 $via_what  = $HTTP_SERVER_VARS['HTTP_REFERER'];
@@ -29,15 +29,15 @@ $fp = fopen("wklog.txt","a");
 fwrite($fp, $logging);
 fclose($fp);
 
-// ### ÇÔ¼ö ±¸Çö ºÎºĞ ################################################################################################
-// ### ÇÑ±Û ÄÚµå¸¦ À§ÇÑ Ã³¸® #######################################
+// ### í•¨ìˆ˜ êµ¬í˜„ ë¶€ë¶„ ################################################################################################
+// ### í•œê¸€ ì½”ë“œë¥¼ ìœ„í•œ ì²˜ë¦¬ #######################################
 function wikiencode($raw){
 	$nonraw = urlencode($raw);
 	if(strpos(" ".$raw,"%")>0) $nonraw=$raw;
 	return str_replace("%","-",$nonraw);
 }
 
-// ### ÁÖ¾îÁø text¿¡¼­ [] ¸µÅ©¸¦ Ã£¾Æ³¿ ############################
+// ### ì£¼ì–´ì§„ textì—ì„œ [] ë§í¬ë¥¼ ì°¾ì•„ëƒ„ ############################
 function wkfunc_find_links_from_text($text_parameter){
 	$j = strlen($text_parameter);
 	$return_strs = ":";
@@ -59,7 +59,7 @@ function wkfunc_find_links_from_text($text_parameter){
 	return explode("\\",substr($return_strs,1,strlen($return_strs) ));
 }
 
-// ### history bak ÆÄÀÏ Ã£¾Æ³¿ ################################
+// ### history bak íŒŒì¼ ì°¾ì•„ëƒ„ ################################
 function wkfunc_backup_file_find_from_filename($filename_parameter, $n_of_returns_parameter){
 	$temporal_return = "";
 	$temporal_max_time = 0;
@@ -80,7 +80,7 @@ function wkfunc_backup_file_find_from_filename($filename_parameter, $n_of_return
 		else return $temporal_return;
 }
 
-// ### Á¦¸ñÀ¸·Î ±× Á¦¸ñÀ» °¡Áø µ¥ÀÌÅÍ ÆÄÀÏ¸íÀ» Ã£¾Æ µ¹·ÁÁÖ´Â ÇÔ¼ö ####################################################
+// ### ì œëª©ìœ¼ë¡œ ê·¸ ì œëª©ì„ ê°€ì§„ ë°ì´í„° íŒŒì¼ëª…ì„ ì°¾ì•„ ëŒë ¤ì£¼ëŠ” í•¨ìˆ˜ ####################################################
 function wkfunc_file_find_from_title($title_parameter)
 {
 	$file_number_counter = 0;
@@ -140,10 +140,10 @@ function wkfunc_file_find_from_title($title_parameter)
 	$temporal_max ++;
 	if(intval($file_number_counter) < $temporal_max) $file_number_counter = $temporal_max;
 
-	return $file_name_return.$file_number_counter; // ±×·± Á¦¸ñÀ» °®´Â ÆäÀÌÁö°¡ ¾øÀ» °æ¿ì, "__NONEXISTANCE__ÀüÃ¼°Ë»öÇÑÆÄÀÏ°¹¼ö" ¸¦ ¸®ÅÏÇÑ´Ù.
+	return $file_name_return.$file_number_counter; // ê·¸ëŸ° ì œëª©ì„ ê°–ëŠ” í˜ì´ì§€ê°€ ì—†ì„ ê²½ìš°, "__NONEXISTANCE__ì „ì²´ê²€ìƒ‰í•œíŒŒì¼ê°¯ìˆ˜" ë¥¼ ë¦¬í„´í•œë‹¤.
 }
 
-// ### ÁÖ¾îÁø ½Ã°£À» °¡Áö°í, ±× ½Ã°£ ÀÌÈÄ·Î ÃÖ½Å ¾÷µ¥ÀÌÆ® ÆÄÀÏÀÇ ÆÄÀÏ¸íÀ» Ã£¾Æ µ¹·ÁÁÖ´Â ÇÔ¼ö #########################
+// ### ì£¼ì–´ì§„ ì‹œê°„ì„ ê°€ì§€ê³ , ê·¸ ì‹œê°„ ì´í›„ë¡œ ìµœì‹  ì—…ë°ì´íŠ¸ íŒŒì¼ì˜ íŒŒì¼ëª…ì„ ì°¾ì•„ ëŒë ¤ì£¼ëŠ” í•¨ìˆ˜ #########################
 function wkfunc_newest_file_find($time_parameter)
 {
 	$file_number_counter = 0;
@@ -219,7 +219,7 @@ function wkfunc_newest_file_find($time_parameter)
 	return $temporal_return_value;
 }
 
-// ### ÁÖ¾îÁø ¹®ÀÚ¿­À» °¡Áö°í, ±× ¹®ÀÚ¿­º¸´Ù »çÀü¼øÀ¸·Î ¹Ù·Î µÚÂÊ¿¡ ÀÖ´Â Á¦¸ñÀ» °¡Áø ÆÄÀÏ¸íÀ» Ã£¾Æ µ¹·ÁÁÖ´Â ÇÔ¼ö #####
+// ### ì£¼ì–´ì§„ ë¬¸ìì—´ì„ ê°€ì§€ê³ , ê·¸ ë¬¸ìì—´ë³´ë‹¤ ì‚¬ì „ìˆœìœ¼ë¡œ ë°”ë¡œ ë’¤ìª½ì— ìˆëŠ” ì œëª©ì„ ê°€ì§„ íŒŒì¼ëª…ì„ ì°¾ì•„ ëŒë ¤ì£¼ëŠ” í•¨ìˆ˜ #####
 function wkfunc_first_title_file_find($title_parameter)
 {
 	// $title_parameter = urlencode($title_parameter);
@@ -228,7 +228,7 @@ function wkfunc_first_title_file_find($title_parameter)
 	$file_name_return = "__NONEXISTANCE__";
 	$temporal_file_pointer = 0;
 	$temporal_title = "";
-	$temporal_maximizer = "ÆRÆRÆR";
+	$temporal_maximizer = "RRR";
 	$temporal_return_value = "";
 
 	$title_parameter = str_replace( "\r", "" , $title_parameter );
@@ -255,7 +255,7 @@ function wkfunc_first_title_file_find($title_parameter)
 		//echo($file_number_counter.":".$file.":".$temporal_title.":".strpos($temporal_title,"?xml ")."\n");
 
 		if(
-		(strcmp($temporal_title, $temporal_maximizer)<0 || strcmp($temporal_maximizer,"ÆRÆRÆR")==0 ) &&
+		(strcmp($temporal_title, $temporal_maximizer)<0 || strcmp($temporal_maximizer,"RRR")==0 ) &&
 		(strcmp($temporal_title,$title_parameter)>0 || strlen($title_parameter)<1 ) 
 		)
 
@@ -267,7 +267,7 @@ function wkfunc_first_title_file_find($title_parameter)
 	return $temporal_return_value;
 }
 
-// ### Á¦¸ñ¼øÀ¸·Î Á¤·ÄµÈ Á¦¸ñ ¸ñ·ÏÀ» ¸¸µé¾î µ¹·ÁÁÖ´Â ÇÔ¼ö ############################################################
+// ### ì œëª©ìˆœìœ¼ë¡œ ì •ë ¬ëœ ì œëª© ëª©ë¡ì„ ë§Œë“¤ì–´ ëŒë ¤ì£¼ëŠ” í•¨ìˆ˜ ############################################################
 function wkfunc_make_title_sorted_list(){
 	$file_number_counter = 0;
 	$file_name_return = "__NONEXISTANCE__";
@@ -300,7 +300,7 @@ function wkfunc_make_title_sorted_list(){
 
 		$temporal_title    = str_replace( "\n","",$temporal_title);
 		$temporal_title    = str_replace( "\r","",$temporal_title);
-		if(strcmp($temporal_title,"»èÁ¦")==0) continue;
+		if(strcmp($temporal_title,"ì‚­ì œ")==0) continue;
 		$temporal_time_str = str_replace( "\n","",$temporal_time_str);
 		$temporal_time_str = str_replace( "\r","",$temporal_time_str);
 		$temporal_time_str = substr($temporal_time_str, strpos($temporal_time_str," 20",strpos($temporal_time_str,"UNIX") ) );
@@ -318,7 +318,7 @@ function wkfunc_make_title_sorted_list(){
 	return $title_sorted_list;
 }
 
-// ### stack ¹®ÀÚ¿­¿¡¼­ needle ¹®ÀÚ¿­ÀÌ »çÀü¼øÀ¸·Î ¹è¿­ÇÏ¸é ¾îµğ¿¡ ³¢¿©¾ß ÇÏ´ÂÁö ¹®ÀÚ¿­ ÀÎµ¦½º¸¦ Ã£¾ÆÁÖ´Â ÇÔ¼ö #######
+// ### stack ë¬¸ìì—´ì—ì„œ needle ë¬¸ìì—´ì´ ì‚¬ì „ìˆœìœ¼ë¡œ ë°°ì—´í•˜ë©´ ì–´ë””ì— ë¼ì—¬ì•¼ í•˜ëŠ”ì§€ ë¬¸ìì—´ ì¸ë±ìŠ¤ë¥¼ ì°¾ì•„ì£¼ëŠ” í•¨ìˆ˜ #######
 function wkfunc_find_sorted_position_from_list($needle, $stack){
 	$I = 0;
 	$i = 0;
@@ -337,10 +337,10 @@ function wkfunc_find_sorted_position_from_list($needle, $stack){
 
 	return $ret;
 }
-// ### ÇÔ¼ö ±¸ÇöºÎ ³¡ ################################################################################################
+// ### í•¨ìˆ˜ êµ¬í˜„ë¶€ ë ################################################################################################
 
 
-// ### ½ÇÁ¦ ½ÇÇàºÎºĞ #################################################################################################
+// ### ì‹¤ì œ ì‹¤í–‰ë¶€ë¶„ #################################################################################################
 $fp=0;
 $i=0;
 $j=0;
@@ -378,7 +378,7 @@ $deco_blit_start="";
 $deco_url="";
 
 
-// ### ¾Æ¹« µ¥ÀÌÅÍ ÆÄÀÏÀÌ ¾øÀ¸¸é µğÀÚÀÎ ÆÄÀÏºÎÅÍ ÀÚµ¿»ı¼º ÇÑ´Ù. ######################################################
+// ### ì•„ë¬´ ë°ì´í„° íŒŒì¼ì´ ì—†ìœ¼ë©´ ë””ìì¸ íŒŒì¼ë¶€í„° ìë™ìƒì„± í•œë‹¤. ######################################################
 $m_first_run_of_wiki=0;
 if(file_exists("wk_design.htm")==false){
 $m_first_run_of_wiki=1;
@@ -413,25 +413,25 @@ fclose( $fp );}
 
 
 
-// ### µğÀÚÀÎ ÆÄÀÏÀ» ÀĞ¾î µéÀÎ´Ù. ####################################################################################
+// ### ë””ìì¸ íŒŒì¼ì„ ì½ì–´ ë“¤ì¸ë‹¤. ####################################################################################
 $fp = fopen( "wk_design.htm", "r" );
 $wk_design = fread( $fp, filesize( "wk_design.htm" ) );
 fclose( $fp );
 
-if(strpos($HTTP_GET_VARS["option"],"tatic")==1){ // static ¿É¼ÇÀÌ ÀÖÀ» °æ¿ì, ´Ù¸¥ µğÀÚÀÎ ÆÄÀÏÀ» ÀĞ´Â´Ù.
+if(strpos($HTTP_GET_VARS["option"],"tatic")==1){ // static ì˜µì…˜ì´ ìˆì„ ê²½ìš°, ë‹¤ë¥¸ ë””ìì¸ íŒŒì¼ì„ ì½ëŠ”ë‹¤.
 if(file_exists("wk_design_static.htm")!=false){
 $fp = fopen( "wk_design_static.htm", "r" );
 $wk_design = fread( $fp, filesize( "wk_design_static.htm" ) );
 fclose( $fp );
 }}
 
-// ### µğÀÚÀÎ ÆÄÀÏÀ» ÇØ¼®ÇÑ´Ù. #######################################################################################
-	// ´ë¹® ÆäÀÌÁö(¸ŞÀÎ ÆäÀÌÁö)ÀÇ Á¦¸ñÀ» ÀĞ¾î µĞ´Ù.
+// ### ë””ìì¸ íŒŒì¼ì„ í•´ì„í•œë‹¤. #######################################################################################
+	// ëŒ€ë¬¸ í˜ì´ì§€(ë©”ì¸ í˜ì´ì§€)ì˜ ì œëª©ì„ ì½ì–´ ë‘”ë‹¤.
 	$fp = fopen( "wkct0.txt", "r" );
 	$wk_first_page_title = fgets($fp);
 	fclose( $fp );
 
-// ### ÆäÀÌÁö Áö¿ì±â. »èÁ¦ Ã³¸® ############################################################################
+// ### í˜ì´ì§€ ì§€ìš°ê¸°. ì‚­ì œ ì²˜ë¦¬ ############################################################################
 if( strlen($HTTP_GET_VARS["pagetoremove"])>0){
 	$m_remove_title = $HTTP_GET_VARS["pagetoremove"];
 	$m_remove_file =  wkfunc_file_find_from_title($m_remove_title);
@@ -473,14 +473,14 @@ if( strlen($HTTP_GET_VARS["pagetoremove"])>0){
 
 	exit(1);
 }
-// ### ÆäÀÌÁö Áö¿ì±â Ã³¸® ³¡ #######
+// ### í˜ì´ì§€ ì§€ìš°ê¸° ì²˜ë¦¬ ë #######
 
 
-	// Áö±İ ÀĞÀ» ÆäÀÌÁöÀÇ Á¦¸ñÀ» ÀĞ¾î µĞ´Ù.
+	// ì§€ê¸ˆ ì½ì„ í˜ì´ì§€ì˜ ì œëª©ì„ ì½ì–´ ë‘”ë‹¤.
 if( strlen($page_to_read) < 1) {
 	$page_to_read = $HTTP_GET_VARS["pagetoread"];
 	
-	// ÀÎÅÍÀ§Å°¸¦ À§ÇÑ Ä¡È¯ Ã³¸®
+	// ì¸í„°ìœ„í‚¤ë¥¼ ìœ„í•œ ì¹˜í™˜ ì²˜ë¦¬
 	$m_Meatball[0] = "Nsmk";
 	$m_Prefix  [0] = "http://no-smok.net/nsmk/";
 	$m_Meatball[1] = "Doosan";
@@ -490,7 +490,7 @@ if( strlen($page_to_read) < 1) {
 	$m_Meatball[3] = "KoWikiPedia";
 	$m_Prefix  [3] = "http://wiki.kldp.org/wiki.php?action=goto&oe=utf-8&url=http://ko.wikipedia.org/wiki/";
 
-	// ÀÎÅÍÀ§Å° ÆäÀÌÁö¸¦ ¿ä±¸ÇÏ¸ç ÆäÀÌÁö¸¦ ¿äÃ»ÇÒ °æ¿ì ÀÚµ¿À¸·Î ¸®´ÙÀÌ·º¼ÇÇÏ¸ç Á¾·á
+	// ì¸í„°ìœ„í‚¤ í˜ì´ì§€ë¥¼ ìš”êµ¬í•˜ë©° í˜ì´ì§€ë¥¼ ìš”ì²­í•  ê²½ìš° ìë™ìœ¼ë¡œ ë¦¬ë‹¤ì´ë ‰ì…˜í•˜ë©° ì¢…ë£Œ
 	for($ii=0;$ii<4;$ii++){
 	if( strpos(" ".$page_to_read, $m_Meatball[$ii].":" )==1 ) {
 		$m_addr = substr($page_to_read, strlen($m_Meatball[$ii])+1, 180 );
@@ -515,26 +515,26 @@ else $wk_title = $page_to_read;
 		$wk_title = $page_to_read;
 	}
 
-	// µğÀÚÀÎ ÆÄÀÏ¿¡ ´ëÇÑ ´Ü¼ø °¡°ø
-	$wk_design = str_replace("¸ŞÀÎÆäÀÌÁöÁ¦¸ñ",$wk_first_page_title, $wk_design);
-	$wk_design = str_replace("Ã³À½ÆäÀÌÁöÁ¦¸ñ",$wk_first_page_title, $wk_design);
-	$wk_design = str_replace("À§Å°Å°À§Á¦¸ñ",str_replace("_"," ",$wk_title), $wk_design);
-	$wk_design = str_replace("ÆäÀÌÁö°íÄ¡±â¸µÅ©","index.php?pagetoedit=".$wk_title."&option=oekaki",$wk_design);
-	$wk_design = str_replace("¿ª¸µÅ©ÆäÀÌÁö¸µÅ©","index.php?pagetoread=SRESULT&sphrase=[ ".$wk_title." ]",$wk_design);
-	$wk_design = str_replace("ÆäÀÌÁö°íÄ¡±â","index.php?pagetoedit=".$wk_title."&option=oekaki",$wk_design);
-	$wk_design = str_replace("ÅØ½ºÆ®°íÄ¡±â¸µÅ©","index.php?pagetoedit=".$wk_title,$wk_design);
-	$wk_design = str_replace("Æ®·¢¹éº¸³»±â¸µÅ©","index.php?pagetoread=".$wk_title."&option=trackback",$wk_design);	
-	$wk_design = str_replace("´Ş¶óÁøÁ¡º¸±â¸µÅ©","index.php?pagetoread=".$wk_title."&option=diff",$wk_design);	
-	$wk_design = str_replace("¿¾³¯ÆÇº¸±â¸µÅ©","index.php?pagetoread=".$wk_title."&option=history",$wk_design);	
-	$wk_design = str_replace("Á¤ÀûHTML»ı¼º¸µÅ©","index.php?pagetoread=".$wk_title."&option=static",$wk_design);	
-	$wk_design = str_replace("Ã³À½ÆäÀÌÁö¸µÅ©","index.php?pagetoread=FIRSTPAGE",$wk_design);
-	$wk_design = str_replace("¸ñ·ÏÆäÀÌÁö¸µÅ©","index.php?pagetoread=TITLELIST",$wk_design);
-	$wk_design = str_replace("¾÷µ¥ÀÌÆ®ÆäÀÌÁö¸µÅ©","index.php?pagetoread=UPDATELIST",$wk_design);
-	$wk_design = str_replace("ÆÄÀÏ¾÷·Îµå¸µÅ©","index.php?pagetoread=UPLOAD",$wk_design);
-	$wk_design = str_replace("°Ë»öÆäÀÌÁö¸µÅ©","index.php?pagetoread=SEARCH",$wk_design);
-	$wk_design = str_replace("µµ¿ò¸»ÆäÀÌÁö¸µÅ©","index.php?pagetoread=À§Å°Å°À§%20µµ¿ò¸»",$wk_design);
-	$wk_design = str_replace("»õ·Î¿îÆäÀÌÁö¸µÅ©","index.php?pagetoedit=Á¦¸ñÀÔ·Â&option=oekaki", $wk_design);
-	$wk_design = str_replace("À§Å°Å°À§RSS¸µÅ©","index.xml",$wk_design);
+	// ë””ìì¸ íŒŒì¼ì— ëŒ€í•œ ë‹¨ìˆœ ê°€ê³µ
+	$wk_design = str_replace("ë©”ì¸í˜ì´ì§€ì œëª©",$wk_first_page_title, $wk_design);
+	$wk_design = str_replace("ì²˜ìŒí˜ì´ì§€ì œëª©",$wk_first_page_title, $wk_design);
+	$wk_design = str_replace("ìœ„í‚¤í‚¤ìœ„ì œëª©",str_replace("_"," ",$wk_title), $wk_design);
+	$wk_design = str_replace("í˜ì´ì§€ê³ ì¹˜ê¸°ë§í¬","index.php?pagetoedit=".$wk_title."&option=oekaki",$wk_design);
+	$wk_design = str_replace("ì—­ë§í¬í˜ì´ì§€ë§í¬","index.php?pagetoread=SRESULT&sphrase=[ ".$wk_title." ]",$wk_design);
+	$wk_design = str_replace("í˜ì´ì§€ê³ ì¹˜ê¸°","index.php?pagetoedit=".$wk_title."&option=oekaki",$wk_design);
+	$wk_design = str_replace("í…ìŠ¤íŠ¸ê³ ì¹˜ê¸°ë§í¬","index.php?pagetoedit=".$wk_title,$wk_design);
+	$wk_design = str_replace("íŠ¸ë™ë°±ë³´ë‚´ê¸°ë§í¬","index.php?pagetoread=".$wk_title."&option=trackback",$wk_design);	
+	$wk_design = str_replace("ë‹¬ë¼ì§„ì ë³´ê¸°ë§í¬","index.php?pagetoread=".$wk_title."&option=diff",$wk_design);	
+	$wk_design = str_replace("ì˜›ë‚ íŒë³´ê¸°ë§í¬","index.php?pagetoread=".$wk_title."&option=history",$wk_design);	
+	$wk_design = str_replace("ì •ì HTMLìƒì„±ë§í¬","index.php?pagetoread=".$wk_title."&option=static",$wk_design);	
+	$wk_design = str_replace("ì²˜ìŒí˜ì´ì§€ë§í¬","index.php?pagetoread=FIRSTPAGE",$wk_design);
+	$wk_design = str_replace("ëª©ë¡í˜ì´ì§€ë§í¬","index.php?pagetoread=TITLELIST",$wk_design);
+	$wk_design = str_replace("ì—…ë°ì´íŠ¸í˜ì´ì§€ë§í¬","index.php?pagetoread=UPDATELIST",$wk_design);
+	$wk_design = str_replace("íŒŒì¼ì—…ë¡œë“œë§í¬","index.php?pagetoread=UPLOAD",$wk_design);
+	$wk_design = str_replace("ê²€ìƒ‰í˜ì´ì§€ë§í¬","index.php?pagetoread=SEARCH",$wk_design);
+	$wk_design = str_replace("ë„ì›€ë§í˜ì´ì§€ë§í¬","index.php?pagetoread=ìœ„í‚¤í‚¤ìœ„%20ë„ì›€ë§",$wk_design);
+	$wk_design = str_replace("ìƒˆë¡œìš´í˜ì´ì§€ë§í¬","index.php?pagetoedit=ì œëª©ì…ë ¥&option=oekaki", $wk_design);
+	$wk_design = str_replace("ìœ„í‚¤í‚¤ìœ„RSSë§í¬","index.xml",$wk_design);
 
 	$wk_design = str_replace("FirstPageTitle",$wk_first_page_title, $wk_design);
 	$wk_design = str_replace("WikiKiwiTitle",str_replace("_"," ",$wk_title), $wk_design);
@@ -545,11 +545,11 @@ else $wk_title = $page_to_read;
 	$wk_design = str_replace("EditPageLink","index.php?pagetoedit=".$wk_title."&option=oekaki",$wk_design);
 
 
-// ### µğÀÚÀÎ ÆÄÀÏ¿¡ ±â·ÏµÈ ¿ä¼ÒÀÇ parsing ###########################################################################
-$position_of_contents = strpos($wk_design,"ÆäÀÌÁö³»¿ë");
-$position_of_headline = strpos($wk_design,"Çìµå¶óÀÎ¼ÒÁ¦¸ñ");
-$position_of_blit = strpos($wk_design,"³ª¿­ºí¸´");
-$headline_length = strlen("Çìµå¶óÀÎ¼ÒÁ¦¸ñ");
+// ### ë””ìì¸ íŒŒì¼ì— ê¸°ë¡ëœ ìš”ì†Œì˜ parsing ###########################################################################
+$position_of_contents = strpos($wk_design,"í˜ì´ì§€ë‚´ìš©");
+$position_of_headline = strpos($wk_design,"í—¤ë“œë¼ì¸ì†Œì œëª©");
+$position_of_blit = strpos($wk_design,"ë‚˜ì—´ë¸”ë¦¿");
+$headline_length = strlen("í—¤ë“œë¼ì¸ì†Œì œëª©");
 if($position_of_contents<1) $position_of_contents = strpos($wk_design,"WikiPageContent");
 if($position_of_headline<1) {$position_of_headline = strpos($wk_design,"HeadlineSubtitle");$headline_length = strlen("HeadlineSubtitle");}
 if($position_of_blit<1) $position_of_blit = strpos($wk_design,"ListingBlit");
@@ -575,11 +575,11 @@ $wk_tail = substr( $wk_design, $end_of_position_of_blit+1);
 
 
 
-// ### ÆäÀÌÁö ¼öÁ¤ ¿äÃ»ÀÏ °æ¿ì #######################################################################################
+// ### í˜ì´ì§€ ìˆ˜ì • ìš”ì²­ì¼ ê²½ìš° #######################################################################################
 $page_to_edit = $HTTP_GET_VARS["pagetoedit"];
 $j = $HTTP_GET_VARS["edittype"];
 
-if( strcmp($page_to_edit,"FIRSTPAGE") == 0 ) { // Ã¹ ÆäÀÌÁöÀÏ °æ¿ì º¼ °Íµµ ¾øÀÌ wkct0.txt ÆÄÀÏ¿¡ ´ëÇÑ ÆíÁıÀÓÀº È®½ÇÇÏ´Ù.
+if( strcmp($page_to_edit,"FIRSTPAGE") == 0 ) { // ì²« í˜ì´ì§€ì¼ ê²½ìš° ë³¼ ê²ƒë„ ì—†ì´ wkct0.txt íŒŒì¼ì— ëŒ€í•œ í¸ì§‘ì„ì€ í™•ì‹¤í•˜ë‹¤.
 	$filename_to_edit = "wkct0.txt";
 	$createnew = 0;
 } else
@@ -595,9 +595,9 @@ if(strpos($HTTP_GET_VARS["pagetoedit"],"llYourBaseAreBelongToUs.Php")>0) { // Di
    		// if you want to use live executive editting, then remove the 1 line below. 
    		exit(1);
 } else
-if(strpos($filename_to_edit,"_NONEXI")>0) {$createnew=1; $filename_to_edit="wkct".substr($filename_to_edit,16).".txt";} // °íÄ¡°íÀÚÇÏ´Â Á¦¸ñÀÇ ÆäÀÌÁö°¡ ¾ø´Â °æ¿ì, »õ·Î¿î ÀÌ¸§À¸·Î ÆÄÀÏ »ı¼º
+if(strpos($filename_to_edit,"_NONEXI")>0) {$createnew=1; $filename_to_edit="wkct".substr($filename_to_edit,16).".txt";} // ê³ ì¹˜ê³ ìí•˜ëŠ” ì œëª©ì˜ í˜ì´ì§€ê°€ ì—†ëŠ” ê²½ìš°, ìƒˆë¡œìš´ ì´ë¦„ìœ¼ë¡œ íŒŒì¼ ìƒì„±
 
-// ### ¼öÁ¤À» À§ÇØ ¿ø·¡ÀÇ ³»¿ëÀ» ÀĞ´Â´Ù. #############################################################################
+// ### ìˆ˜ì •ì„ ìœ„í•´ ì›ë˜ì˜ ë‚´ìš©ì„ ì½ëŠ”ë‹¤. #############################################################################
 if($createnew<=0){
 	$fp = fopen( $filename_to_edit, "r" );
 if($createnew==0) $wk_title =fgets($fp); else $wk_title = " ";
@@ -613,28 +613,28 @@ fclose( $fp );
 $wk_contents = str_replace("\r","",$wk_contents);
 
 
-	// ¼öÁ¤ Á¦ÇÑ ¾ÏÈ£(È¤Àº ´ä±Û¸¸ Çã¿ë)°¡ °É·Á ÀÖ´Â °æ¿ìÀÇ Ã³¸®
+	// ìˆ˜ì • ì œí•œ ì•”í˜¸(í˜¹ì€ ë‹µê¸€ë§Œ í—ˆìš©)ê°€ ê±¸ë ¤ ìˆëŠ” ê²½ìš°ì˜ ì²˜ë¦¬
 $i = substr($wk_contents,0,5);
-if((strcmp($i,"¾ÏÈ£ ")==0 || strcmp($i,"¾Õ±Û ")==0  || strcmp($i,"´ä±Û ")==0)  && strcmp($j,"reply") != 0)
+if((strcmp($i,"ì•”í˜¸ ")==0 || strcmp($i,"ì•ê¸€ ")==0  || strcmp($i,"ë‹µê¸€ ")==0)  && strcmp($j,"reply") != 0)
 {
 	$i = strpos($wk_contents,"\n");
 	$wk_password = substr($wk_contents,5,$i-5);
-	if( strcmp($HTTP_GET_VARS["pwd"],$wk_password)!=0) { // ¾ÏÈ£¸¦ Á¦°ø ¹ŞÁö ¸øÇß°Å³ª, ¾ÏÈ£°¡ ´Ù¸¥ °æ¿ì, ¾ÏÈ£¸¦ ¹°¾îº¸´Â Ã¢À» ¶ç¿ò
+	if( strcmp($HTTP_GET_VARS["pwd"],$wk_password)!=0) { // ì•”í˜¸ë¥¼ ì œê³µ ë°›ì§€ ëª»í–ˆê±°ë‚˜, ì•”í˜¸ê°€ ë‹¤ë¥¸ ê²½ìš°, ì•”í˜¸ë¥¼ ë¬¼ì–´ë³´ëŠ” ì°½ì„ ë„ì›€
 	echo "<script language='javascript'>\n";
 	echo "var pwd;\n";
 	echo "pwd = prompt('Password');\n";
 	echo "location.replace('index.php?pagetoedit=$page_to_edit&pwd='+pwd);\n";
-	// ¾ÏÈ£´Â get ¹æ½ÄÀ¸·Î ´Ù½Ã Àü´ŞµÊ.
+	// ì•”í˜¸ëŠ” get ë°©ì‹ìœ¼ë¡œ ë‹¤ì‹œ ì „ë‹¬ë¨.
 	echo "</script>\n";
 	exit();
-	} // ¾ÏÈ£°¡ Á¦°øµÇ¾úÀ¸¸ç, ÀÏÄ¡ÇÏ´Â °æ¿ì ÀÏ¹İÀûÀÎ ¼öÁ¤ ÀÛ¾÷À¸·Î ÀÌ¾îÁü.
+	} // ì•”í˜¸ê°€ ì œê³µë˜ì—ˆìœ¼ë©°, ì¼ì¹˜í•˜ëŠ” ê²½ìš° ì¼ë°˜ì ì¸ ìˆ˜ì • ì‘ì—…ìœ¼ë¡œ ì´ì–´ì§.
 }
 
 echo $wk_head;
 echo "<form method=post action=index.php>\n";
 $redirection_home_url = $HTTP_GET_VARS["homeurl"];
-if( ( strcmp($i,"¾Õ±Û ")==0  && strcmp($j,"eply") == 1) || ( strcmp($i,"´ä±Û ")==0  && strcmp($j,"eply") == 1) || strcmp($j,"eply") == 1 )
-{ // µ¡±Û ·ùÀÏ °æ¿ì, ¶ç¿ì´Â formÀÇ ÇüÅÂ°¡ ´Ù¸§
+if( ( strcmp($i,"ì•ê¸€ ")==0  && strcmp($j,"eply") == 1) || ( strcmp($i,"ë‹µê¸€ ")==0  && strcmp($j,"eply") == 1) || strcmp($j,"eply") == 1 )
+{ // ë§ê¸€ ë¥˜ì¼ ê²½ìš°, ë„ìš°ëŠ” formì˜ í˜•íƒœê°€ ë‹¤ë¦„
 echo "<H3>Reply to \"<B>".$page_to_edit."</B>\"</H3><BR/>\n";
 echo "Name <input name=name><BR>\n";
 //echo "Anti-spam Question: Just type 6 alphabet characters, \"hehehe\" <input name=nospam><BR>\n";
@@ -645,7 +645,7 @@ echo "Homepage URL <input name=hompurl><BR>\n";
 if($m_static_flag==1 && $m_static_auto_replace==0) $redirection_home_url="index.php?pagetoread=".urlencode($page_to_edit)."&redirect=static"; // STATIC_BASED_PAGE
 }
 else
-{ // ÀÌ°ÍÀÌ ÀÏ¹İÀûÀÎ form
+{ // ì´ê²ƒì´ ì¼ë°˜ì ì¸ form
 echo  "Title <input name=title value=\"$page_to_edit\"><BR>\n";
 echo "<TEXTAREA name=contents rows=30 style='width:100%; line-height:150%;'>\n";
 echo $wk_contents.$HTTP_GET_VARS["defaulttext"];
@@ -658,10 +658,10 @@ echo "<input type=hidden name=edittype value=\"$j\">\n";
 echo "<input type=submit value=\"Submit\">\n";
 echo "<BR>";
 
-if( ( strcmp($i,"¾Õ±Û ")==0  && strcmp($j,"eply") == 1) || ( strcmp($i,"´ä±Û ")==0  && strcmp($j,"eply") == 1) || strcmp($j,"eply") == 1 )
+if( ( strcmp($i,"ì•ê¸€ ")==0  && strcmp($j,"eply") == 1) || ( strcmp($i,"ë‹µê¸€ ")==0  && strcmp($j,"eply") == 1) || strcmp($j,"eply") == 1 )
 	{}
 	else {
-	echo "<select name='filelinklist'>\n"; // edit ½Ã »ç¿ëµÇ´Â ÆÄÀÏ¸µÅ© ¸ñ·ÏÀ» À§ÇØ
+	echo "<select name='filelinklist'>\n"; // edit ì‹œ ì‚¬ìš©ë˜ëŠ” íŒŒì¼ë§í¬ ëª©ë¡ì„ ìœ„í•´
 
 	$dir=opendir("./");
 	while($file = readdir($dir)) {
@@ -695,8 +695,8 @@ echo "         document.forms[document.forms.length-1].contents.value += filenam
 echo "}\n";
 echo "</script>\n";
 
-// ### ¿À¿¡Ä«Å°¸¦ À§ÇÑ ÀÚ¹Ù½ºÅ©¸³Æ®¸¦ µ¡ºÙÀÎ´Ù. ######################################################################
-// ### ÀüÇô »ç¿ëÇÏÁö ¾Ê°Å³ª ´ëÃ¼ÇÒ °æ¿ì ÀÌ°÷À» ÆíÁı. #################################################################
+// ### ì˜¤ì—ì¹´í‚¤ë¥¼ ìœ„í•œ ìë°”ìŠ¤í¬ë¦½íŠ¸ë¥¼ ë§ë¶™ì¸ë‹¤. ######################################################################
+// ### ì „í˜€ ì‚¬ìš©í•˜ì§€ ì•Šê±°ë‚˜ ëŒ€ì²´í•  ê²½ìš° ì´ê³³ì„ í¸ì§‘. #################################################################
 if(strpos($HTTP_GET_VARS["option"],"ekaki")==1 && strpos($wk_design,"!--NOOEKAKI--")<=0 )
  echo '
 <div style="line-height: 0pt ; font-size : 20 ;">
@@ -862,25 +862,25 @@ document.writeln("<BR>");
 </form>
 -->
 ';
-// ### ¿À¿¡Ä«Å° °ü·Ã ºÎºĞ Ã³¸® ¿Ï·á ##################################################################################
+// ### ì˜¤ì—ì¹´í‚¤ ê´€ë ¨ ë¶€ë¶„ ì²˜ë¦¬ ì™„ë£Œ ##################################################################################
 
 echo $wk_tail;
 
 exit();
 }
-// ### ÆäÀÌÁö ¼öÁ¤¿¡ °üÇÑ ³»¿ë Ã³¸® ¿Ï·á #############################################################################
+// ### í˜ì´ì§€ ìˆ˜ì •ì— ê´€í•œ ë‚´ìš© ì²˜ë¦¬ ì™„ë£Œ #############################################################################
 
 
-// ### ÆäÀÌÁö ³»¿ëÀ» ½ÇÁ¦·Î ÆÄÀÏ¿¡ ¾²´Â ºÎºĞ #########################################################################
-// ### ÆäÀÌÁö ÆíÁıÀ» ÇÑ ÈÄ submit °á°ú·Î ¿äÃ»ÇÏ°Ô µÇ´Â ÆäÀÌÁö´Â ¹Ù·Î ÀÌ ºÎºĞÀÌ µÈ´Ù. #################################
-// ### Æ®·¢¹éµµ ÀÌ°÷¿¡¼­ Ã³¸®ÇÔ. #####################################################################################
+// ### í˜ì´ì§€ ë‚´ìš©ì„ ì‹¤ì œë¡œ íŒŒì¼ì— ì“°ëŠ” ë¶€ë¶„ #########################################################################
+// ### í˜ì´ì§€ í¸ì§‘ì„ í•œ í›„ submit ê²°ê³¼ë¡œ ìš”ì²­í•˜ê²Œ ë˜ëŠ” í˜ì´ì§€ëŠ” ë°”ë¡œ ì´ ë¶€ë¶„ì´ ëœë‹¤. #################################
+// ### íŠ¸ë™ë°±ë„ ì´ê³³ì—ì„œ ì²˜ë¦¬í•¨. #####################################################################################
 $page_to_read = "";
 $page_to_edit = "";
 $page_to_edit = $HTTP_POST_VARS["pagetowrite"];
 if(strlen($page_to_edit)<1 && strlen($HTTP_POST_VARS["blog_name"])<2) $page_to_edit = $HTTP_GET_VARS["pagetowrite"];
 
-// ### Æ®·¢¹éÃ³¸® ###################################################################################################
-if(strlen($page_to_edit)<1) { // blog_nameÀÌ ¼³Á¤µÈ, POST°¡ ¾Æ´Ñ get¹æ½ÄÀ¸·Î¸¸ ÆÄÀÏÀÌ¸§À» Á¤ÇÏ´Â ¿äÃ»Àº Æ®·¢¹éÃ³¸®ÀÓ
+// ### íŠ¸ë™ë°±ì²˜ë¦¬ ###################################################################################################
+if(strlen($page_to_edit)<1) { // blog_nameì´ ì„¤ì •ëœ, POSTê°€ ì•„ë‹Œ getë°©ì‹ìœ¼ë¡œë§Œ íŒŒì¼ì´ë¦„ì„ ì •í•˜ëŠ” ìš”ì²­ì€ íŠ¸ë™ë°±ì²˜ë¦¬ì„
 	$page_to_edit = $HTTP_GET_VARS["pagetowrite"];
 	if(strpos($HTTP_POST_VARS["url"],"://")>0){
 	$HTTP_POST_VARS["pagetowrite"] = $HTTP_GET_VARS["pagetowrite"];
@@ -904,14 +904,14 @@ $HTTP_POST_VARS["excerpt"]=str_replace("=","",$HTTP_POST_VARS["excerpt"]);
 $HTTP_POST_VARS["excerpt"]=str_replace("[","",$HTTP_POST_VARS["excerpt"]);
 $HTTP_POST_VARS["exceprt"]=str_replace("]","",$HTTP_POST_VARS["excerpt"]);
 	$HTTP_POST_VARS["contents"] = " ''' ".$tb_title."  [".$HTTP_POST_VARS["url"]."] ''' ".$HTTP_POST_VARS["excerpt"];
-	} // Æ®·¢¹éÀº ÀÏÁ¾ÀÇ ´ä±Û·Î Ã³¸®µÈ´Ù. Áï, Æ®·¢¹éÀ» º¸³»±â À§ÇØ ³¯¾Æ¿Â ³»¿ëµéÀº ´ä±ÛÀ» À§ÇØ Àü´ŞµÈ Á¤º¸ÀÎ °Í Ã³·³ º¯È¯µÇ°í, ÀÏ¹İ ´ä±ÛÃ³¸®·Î ÀÌ¾îÁö°Ô µÈ´Ù.
+	} // íŠ¸ë™ë°±ì€ ì¼ì¢…ì˜ ë‹µê¸€ë¡œ ì²˜ë¦¬ëœë‹¤. ì¦‰, íŠ¸ë™ë°±ì„ ë³´ë‚´ê¸° ìœ„í•´ ë‚ ì•„ì˜¨ ë‚´ìš©ë“¤ì€ ë‹µê¸€ì„ ìœ„í•´ ì „ë‹¬ëœ ì •ë³´ì¸ ê²ƒ ì²˜ëŸ¼ ë³€í™˜ë˜ê³ , ì¼ë°˜ ë‹µê¸€ì²˜ë¦¬ë¡œ ì´ì–´ì§€ê²Œ ëœë‹¤.
 }
 
-// ### ÀÏ¹İ ÆÄÀÏ ¾²±â Ã³¸® ###########################################################################################
+// ### ì¼ë°˜ íŒŒì¼ ì“°ê¸° ì²˜ë¦¬ ###########################################################################################
 if( strlen($page_to_edit) >= 1 ) {
 $reply_edit_type = $HTTP_POST_VARS["edittype"];
 if(strlen($reply_edit_type)<1) $reply_edit_type = $HTTP_GET_VARS["edittype"];
-if(strcmp($reply_edit_type,"reply")==0) // ¸¸¾à ´ä±ÛÀÌ¶ó¸é,
+if(strcmp($reply_edit_type,"reply")==0) // ë§Œì•½ ë‹µê¸€ì´ë¼ë©´,
 {
 	if(file_exists($page_to_edit)) ; else exit(1);
 
@@ -922,9 +922,9 @@ if(strcmp($reply_edit_type,"reply")==0) // ¸¸¾à ´ä±ÛÀÌ¶ó¸é,
 	$wk_contents_ori = str_replace("\r","",$wk_contents_ori);
 	fclose( $fp );
 
-	// ¾ÏÈ£¸¦ ±âÀÔÇÑ´Ù.
+	// ì•”í˜¸ë¥¼ ê¸°ì…í•œë‹¤.
 	$i = substr($wk_contents_ori,0,5);
-	if( strcmp($i,"¾ÏÈ£ ")==0 || strcmp($i,"¾Õ±Û ")==0  || strcmp($i,"´ä±Û ")==0 ) {
+	if( strcmp($i,"ì•”í˜¸ ")==0 || strcmp($i,"ì•ê¸€ ")==0  || strcmp($i,"ë‹µê¸€ ")==0 ) {
 	$k = strpos($wk_contents_ori,"\n");
 	$j = substr($wk_contents_ori,0,$k); // $j is the first line of the file
 	$i = substr($wk_contents_ori,0,5); // $i is the type of protection
@@ -945,7 +945,7 @@ $temp_url_contt = $HTTP_POST_VARS["contents"]; if(strlen($temp_url_contt)<1) $te
             for($l=0;$l<300;$l++){
             	$main_temp = wkfunc_first_title_file_find($main_temp2);
              	if(strcmp($main_temp,$main_temp2)==0 || strlen($main_temp)<2 ) break;
-              	if(strcmp($main_temp,"»èÁ¦")!=0 && strcmp($main_temp,$wk_title)!=0) {
+              	if(strcmp($main_temp,"ì‚­ì œ")!=0 && strcmp($main_temp,$wk_title)!=0) {
                  $wk_contents = str_replace( " [ ".$main_temp." ] ", $main_temp, $wk_contents);
                  $wk_contents = str_replace( $main_temp, " [ ".$main_temp." ] ",$wk_contents);
                  }
@@ -1058,15 +1058,15 @@ $temp_url_contt = $HTTP_POST_VARS["contents"]; if(strlen($temp_url_contt)<1) $te
 
 	$old_timestamp = str_replace("\n","",$old_timestamp);
 
-if(strlen($wk_contents)>2 && strlen($wk_title)<40 ) { // ÇØÅ·, ½ºÆÔ ¹× Ä¡¸íÀû ¿¡·¯ ¹æÁö¸¦ À§ÇØ
-	//if(strlen($HTTP_POST_VARS["name"])>1 && strpos($HTTP_POST_VARS["nospam"], "ehehe")!=1) exit(1); // spam ¹æÁö
+if(strlen($wk_contents)>2 && strlen($wk_title)<40 ) { // í•´í‚¹, ìŠ¤íŒ¸ ë° ì¹˜ëª…ì  ì—ëŸ¬ ë°©ì§€ë¥¼ ìœ„í•´
+	//if(strlen($HTTP_POST_VARS["name"])>1 && strpos($HTTP_POST_VARS["nospam"], "ehehe")!=1) exit(1); // spam ë°©ì§€
 	// if(strlen($HTTP_POST_VARS["name"])<2  
 	// && strspn($wk_title."$","1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ/")!=strlen($wk_title)
 	//  ) {
 	//	echo("Anti hacking:<BR/>".$wk_title);
-	//	exit(1); // ½ºÆÔ ¹æÁö
+	//	exit(1); // ìŠ¤íŒ¸ ë°©ì§€
 	// }
-	if(strlen($HTTP_POST_VARS["name"])<2 && strcmp($reply_edit_type,"reply")==0 ) exit(1); // spam ¹æÁö
+	if(strlen($HTTP_POST_VARS["name"])<2 && strcmp($reply_edit_type,"reply")==0 ) exit(1); // spam ë°©ì§€
 
 	if( strpos($reply_edit_type,"eply")==1 ) {
 		if(strpos($wk_contents,".png")>0) {echo("Image is prohibited.");exit(1);}
@@ -1096,8 +1096,8 @@ if(strlen($wk_contents)>2 && strlen($wk_title)<40 ) { // ÇØÅ·, ½ºÆÔ ¹× Ä¡¸íÀû ¿¡
 
 
 	if( strcmp($reply_edit_type,"reply")==0 ) {
-	// ´ä±Û ´Ş±â³ª Ãß°¡ÀÌ¸é
-		if(strcmp($i,"¾Õ±Û ")==0)
+	// ë‹µê¸€ ë‹¬ê¸°ë‚˜ ì¶”ê°€ì´ë©´
+		if(strcmp($i,"ì•ê¸€ ")==0)
 			{
 			$j=$j."\n";
 			fwrite( $fp, $j, strlen($j) );
@@ -1109,10 +1109,10 @@ if(strlen($wk_contents)>2 && strlen($wk_title)<40 ) { // ÇØÅ·, ½ºÆÔ ¹× Ä¡¸íÀû ¿¡
 			fwrite( $fpxml, $wk_contents_ori, strlen($wk_contents_ori) );
 			}
 		else
-		//if(strcmp($i,"´ä±Û ")==0)
+		//if(strcmp($i,"ë‹µê¸€ ")==0)
 			{
 			$j=$j;
-			if(strcmp($i,"´ä±Û")==0) {
+			if(strcmp($i,"ë‹µê¸€")==0) {
 				fwrite( $fp, $j, strlen($j) );
 				if(strlpos("\n")<2) fwrite($fp,"\n");
 				}
@@ -1135,7 +1135,7 @@ if(strlen($wk_contents)>2 && strlen($wk_title)<40 ) { // ÇØÅ·, ½ºÆÔ ¹× Ä¡¸íÀû ¿¡
 			fwrite( $fpxml, $wk_contents, strlen($wk_contents) );
 			}
 	}
-	else	{ // ¾Æ´Ï¸é ÀÏ¹İ ¾²±â
+	else	{ // ì•„ë‹ˆë©´ ì¼ë°˜ ì“°ê¸°
 		fwrite( $fp,  $wk_contents, strlen($wk_contents) );
 		fwrite($fpxml,$wk_contents, strlen($wk_contents) );
 	}
@@ -1185,7 +1185,7 @@ fclose($fp);
 	//
 	// XML list setup
 	//
-// ### Ajax static backup ÆäÀÌÁö¸¦ À§ÇÑ XML ÆÄÀÏ¸®½ºÆ®ÀÇ ÀÛ¼º ########################################################
+// ### Ajax static backup í˜ì´ì§€ë¥¼ ìœ„í•œ XML íŒŒì¼ë¦¬ìŠ¤íŠ¸ì˜ ì‘ì„± ########################################################
 	$xmllist = "";
 	if(file_exists("wkctlist.xml")!=false){
 	$fp = fopen( "wkctlist.xml", "rb" );
@@ -1218,7 +1218,7 @@ fclose($fp);
 	fwrite($fpxml,$xmltags,strlen($xmltags) );
 	fclose($fpxml);
 	
-// ### RSS feed¸¦ ¸¸µç´Ù. ############################################################################################
+// ### RSS feedë¥¼ ë§Œë“ ë‹¤. ############################################################################################
 // RSS Feeding
 // for blog RSS
 
@@ -1257,8 +1257,8 @@ for($l=0;$l<7;$l++){
 	$wk_first_page_title_noret = str_replace("\n","",$wk_first_page_title_noret);
 	$wk_first_page_title_noret = str_replace("\r","",$wk_first_page_title_noret);
 	$fixedtitle = "";
-	if(strcmp($main_temp,"»èÁ¦")!=0) $fixedtitle =  substr($main_temp,$j+1,$k-$j-1);
-        if(strcmp($main_temp,"»èÁ¦")!=0 && strcmp($fixedtitle,$wk_first_page_title_noret)!=0)
+	if(strcmp($main_temp,"ì‚­ì œ")!=0) $fixedtitle =  substr($main_temp,$j+1,$k-$j-1);
+        if(strcmp($main_temp,"ì‚­ì œ")!=0 && strcmp($fixedtitle,$wk_first_page_title_noret)!=0)
         {
                 $wk_contents = $wk_contents."<item>";
                 $wk_contents = $wk_contents."<title>".$fixedtitle."</title>\n";
@@ -1317,20 +1317,20 @@ $fp = fopen( "index.xml", "wb");
 fwrite( $fp, $wk_contents);
 fclose($fp);
 }
-// ### RSS ¸¸µé±â ¿Ï·á ###############################################################################################
+// ### RSS ë§Œë“¤ê¸° ì™„ë£Œ ###############################################################################################
 
 
-// ### ÀÛ¾÷ ¿Ï·áÈÄ Å¬¶óÀÌ¾ğÆ®¿¡ Ç¥½ÃÇÒ ¸Ş¼¼Áöµé ######################################################################
+// ### ì‘ì—… ì™„ë£Œí›„ í´ë¼ì´ì–¸íŠ¸ì— í‘œì‹œí•  ë©”ì„¸ì§€ë“¤ ######################################################################
 	$tb_url = urlencode( $tb_url );
 	$page_to_read = $wk_title;
-	if(strpos($HTTP_POST_VARS["url"],"://")>0 || strcmp($HTTP_GET_VARS["xml"],"yes")==0) { // track backÀ» º¸³»°Å³ª xml·Î ´äÇØ ¿À¶ó´Â ¿äÃ»ÀÌ ÀÖ¾ú´Ù¸é, ±×´ë·Î.
+	if(strpos($HTTP_POST_VARS["url"],"://")>0 || strcmp($HTTP_GET_VARS["xml"],"yes")==0) { // track backì„ ë³´ë‚´ê±°ë‚˜ xmlë¡œ ë‹µí•´ ì˜¤ë¼ëŠ” ìš”ì²­ì´ ìˆì—ˆë‹¤ë©´, ê·¸ëŒ€ë¡œ.
 	echo('<?xml version="1.0" encoding="iso-8859-1" ?><response><error>0</error></response>');
 	} else
 	{
 	if(strlen($tb_url)>3) 
 		echo("<script language='javascript'>location.replace('index.php?pagetoread=$wk_title&option=trackback&target=".$tb_url."');\n</script>");
 		else
-		if(strlen($HTTP_POST_VARS["homeurl"])<2) // ÀÌµµ Àúµµ ¾Æ´Ñ °æ¿ì homeurlÀÌ¶ó´Â º¯¼ö·Î ³Ñ¾î¿Â ÁÖ¼Ò È¤Àº, ¾²±â ¿Ï·áÇÑ ¹®Á¦ÀÇ ÆäÀÌÁö·Î ¸®´ÙÀÌ·º¼Ç
+		if(strlen($HTTP_POST_VARS["homeurl"])<2) // ì´ë„ ì €ë„ ì•„ë‹Œ ê²½ìš° homeurlì´ë¼ëŠ” ë³€ìˆ˜ë¡œ ë„˜ì–´ì˜¨ ì£¼ì†Œ í˜¹ì€, ì“°ê¸° ì™„ë£Œí•œ ë¬¸ì œì˜ í˜ì´ì§€ë¡œ ë¦¬ë‹¤ì´ë ‰ì…˜
 			echo("<script language='javascript'>\nlocation.replace('index.php?option=edited&pagetoread=".urlencode($wk_title)."');\n</script>");
 			else
 			echo("<script language='javascript'>\nlocation.replace('".$HTTP_POST_VARS["homeurl"]."');\n</script>");
@@ -1338,12 +1338,12 @@ fclose($fp);
 	exit();
 }
 
-// ### ½ÇÁ¦ ÆÄÀÏ¿¡ ¾²±â °ü·Ã ºÎºĞ ¿Ï·á ###############################################################################
+// ### ì‹¤ì œ íŒŒì¼ì— ì“°ê¸° ê´€ë ¨ ë¶€ë¶„ ì™„ë£Œ ###############################################################################
 
 
 
 
-// ### ÆäÀÌÁö ·»´õ¸µ ºÎºĞ ############################################################################################
+// ### í˜ì´ì§€ ë Œë”ë§ ë¶€ë¶„ ############################################################################################
 $nondeco_wk2= "";
 
 // If there is NOT any command then "read page 0"
@@ -1379,8 +1379,8 @@ echo "</TEXTAREA><BR>\n";
 $filename_to_edit = "wkct".substr($filename_to_read,16).".txt";
 echo "<input type=hidden name=pagetowrite value=\"$filename_to_edit\">\n";
 echo "<input type=hidden name=itstitle value=\"$page_to_read\">\n";
-echo "<input type=submit value=\"¿Ï·á\">\n";
-echo "<BR><input type=checkbox name=autolinkgen value=false>ÀÚµ¿¸µÅ©»ı¼º\n";
+echo "<input type=submit value=\"ì™„ë£Œ\">\n";
+echo "<BR><input type=checkbox name=autolinkgen value=false>ìë™ë§í¬ìƒì„±\n";
 echo "</form>";
 echo $wk_tail;
 
@@ -1391,7 +1391,7 @@ exit();
 // Read page contents
 // If it's special function page
 // Titlelist
-if(strcmp($wk_title,"Á¦¸ñ ¼ø¼­ ¸ñ·Ï")==0 || strcmp($wk_title,"Title List")==0) {
+if(strcmp($wk_title,"ì œëª© ìˆœì„œ ëª©ë¡")==0 || strcmp($wk_title,"Title List")==0) {
 $wk_date ="";
 $wk_contents = "\n";
 $main_temp2 = "";
@@ -1401,7 +1401,7 @@ $i = 0;
 for($l=0;$l<1500;$l++){
 	$main_temp = wkfunc_first_title_file_find($main_temp2);
 	if(strcmp($main_temp,$main_temp2)==0 || strlen($main_temp)<1 ) {break;}
-	if(strcmp($main_temp,"»èÁ¦")!=0 ) {
+	if(strcmp($main_temp,"ì‚­ì œ")!=0 ) {
 		$wk_contents = $wk_contents." *  [ ".$main_temp." ]  \n";
 	}
 	 else $l--;
@@ -1417,7 +1417,7 @@ $wk_contents = str_replace( " *   [ ".$wk_first_page_noret." ]  ", " *   ".$wk_f
 
 
 
-else if(strcmp($wk_title,"°Ë»ö °á°ú")==0 || strcmp($wk_title,"Search Result")==0) {
+else if(strcmp($wk_title,"ê²€ìƒ‰ ê²°ê³¼")==0 || strcmp($wk_title,"Search Result")==0) {
 $wk_date ="";
 $wk_contents = "\n";
 $main_temp2 = "";
@@ -1433,7 +1433,7 @@ $wk_contents = $wk_contents."Keyword: `` ".$sphrase." ''\n\n";
 for($l=0;$l<1500;$l++){
 	$main_temp = wkfunc_first_title_file_find($main_temp2);
 	if(strcmp($main_temp,$main_temp2)==0 || strlen($main_temp)<1 ) break;
-	if(strcmp($main_temp,"»èÁ¦")!=0){
+	if(strcmp($main_temp,"ì‚­ì œ")!=0){
 		if ( strlen( $main_temp ) != strlen(str_replace($sphrase, "",$main_temp) )  )
 		{	$wk_contents = $wk_contents." *  [ ".$main_temp." ]  \n";}
                 } else $l--;
@@ -1450,7 +1450,7 @@ $i = 0;
 for($l=0;$l<1500;$l++){
 	$main_temp = wkfunc_first_title_file_find($main_temp2);
 	if(strcmp($main_temp,$main_temp2)==0 || strlen($main_temp)<1 ) break;
-	if(strcmp($main_temp,"»èÁ¦")!=0)
+	if(strcmp($main_temp,"ì‚­ì œ")!=0)
 	{
 
                $filename_to_search = wkfunc_file_find_from_title($main_temp);
@@ -1472,41 +1472,41 @@ for($l=0;$l<1500;$l++){
 
 }
 
-else if(strcmp($wk_title,"°Ë»ö")==0  || strcmp($wk_title,"Search")==0) {
+else if(strcmp($wk_title,"ê²€ìƒ‰")==0  || strcmp($wk_title,"Search")==0) {
 $wk_contents = $wk_contents.'<form action="index.php" method="GET">';
 $wk_contents = $wk_contents.'<input name="pagetoread" type="hidden" value="SRESULT">';
 $wk_contents = $wk_contents.'<input name="sphrase" type="text">';
-$wk_contents = $wk_contents.'<input type="submit" value="°Ë»ö">';
+$wk_contents = $wk_contents.'<input type="submit" value="ê²€ìƒ‰">';
 $wk_contents = $wk_contents.'</form>';
 }
 
 
-else if(strcmp($wk_title,"ÆÄÀÏ ¾÷·Îµå")==0  || strcmp($wk_title,"File Upload")==0) {
+else if(strcmp($wk_title,"íŒŒì¼ ì—…ë¡œë“œ")==0  || strcmp($wk_title,"File Upload")==0) {
 $wk_contents = $wk_contents.'<form enctype="multipart/form-data" action="index.php" method="POST">';
 $wk_contents = $wk_contents.'<input name="pagetoread" type="hidden" value="UPLOADED">';
 $wk_contents = $wk_contents.'<input name="userfile" type="file">';
-$wk_contents = $wk_contents.'<input type="submit" value="¾÷·Îµå">';
+$wk_contents = $wk_contents.'<input type="submit" value="ì—…ë¡œë“œ">';
 $wk_contents = $wk_contents.'</form>';
 }
 
-else if(strcmp($wk_title,"ÆÄÀÏ ¾÷·Îµå ¿Ï·á")==0  || strcmp($wk_title,"Upload Completed")==0) {
+else if(strcmp($wk_title,"íŒŒì¼ ì—…ë¡œë“œ ì™„ë£Œ")==0  || strcmp($wk_title,"Upload Completed")==0) {
 	$uploaddir = './';
 	$uploadfile = $uploaddir. $_FILES['userfile']['name'];
 
 	if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
-		$wk_contents = $wk_contents."ÆÄÀÏÀÌ Á¸ÀçÇÏ°í, ¼º°øÀûÀ¸·Î ¾÷·Îµå µÇ¾ú½À´Ï´Ù.";
-		$wk_contents = $wk_contents."Ãß°¡ µğ¹ö±ë Á¤º¸ÀÔ´Ï´Ù:\n";
+		$wk_contents = $wk_contents."íŒŒì¼ì´ ì¡´ì¬í•˜ê³ , ì„±ê³µì ìœ¼ë¡œ ì—…ë¡œë“œ ë˜ì—ˆìŠµë‹ˆë‹¤.";
+		$wk_contents = $wk_contents."ì¶”ê°€ ë””ë²„ê¹… ì •ë³´ì…ë‹ˆë‹¤:\n";
                 echo("<!--");print_r($_FILES);echo("-->");
 	} else {
-		$wk_contents = $wk_contents."ÆÄÀÏ ¾÷·Îµå °ø°İÀÇ °¡´É¼ºÀÌ ÀÖ½À´Ï´Ù! µğ¹ö±ë Á¤º¸ÀÔ´Ï´Ù:\n";
+		$wk_contents = $wk_contents."íŒŒì¼ ì—…ë¡œë“œ ê³µê²©ì˜ ê°€ëŠ¥ì„±ì´ ìˆìŠµë‹ˆë‹¤! ë””ë²„ê¹… ì •ë³´ì…ë‹ˆë‹¤:\n";
                 echo("<!--");print_r($_FILES);echo("-->");
 	}
 
-	$wk_contents = $wk_contents."<BR>\n * <a href='javascript:history.go(-2)'>ÀÌÀü ÆäÀÌÁö·Î</a>";
+	$wk_contents = $wk_contents."<BR>\n * <a href='javascript:history.go(-2)'>ì´ì „ í˜ì´ì§€ë¡œ</a>";
 }
 
 //  Update List
-else if(strcmp($wk_title,"ÃÖ±Ù ¾÷µ¥ÀÌÆ® ÆäÀÌÁö")==0  || strcmp($wk_title,"Updated Pages")==0) {
+else if(strcmp($wk_title,"ìµœê·¼ ì—…ë°ì´íŠ¸ í˜ì´ì§€")==0  || strcmp($wk_title,"Updated Pages")==0) {
 $wk_date ="";
 $wk_contents = "\n";
 $main_temp2 = "";
@@ -1521,7 +1521,7 @@ for($l=0;$l<20;$l++){
 	$k = strpos($main_temp,"#CQSW?=");
 
 	$wk_link_page = substr($main_temp,$j+1,$k-$j-1);
-	if(strpos(" ".$main_temp,":»èÁ¦")<=0)
+	if(strpos(" ".$main_temp,":ì‚­ì œ")<=0)
 	  {$wk_contents = $wk_contents." &nbsp; [LINK:moindiff.gif] [ ".$wk_link_page." ]  &nbsp;&nbsp; ".substr($main_temp,strpos($main_temp," 20", strpos($main_temp,"UNIX") ) );}
        	else $l--;
 
@@ -1566,7 +1566,7 @@ else if( strcmp( $HTTP_GET_VARS["option"], "diff" )==0 ) { // diff
 	$wk_contents2 = str_replace("\n","",$wk_contents2);
 
 	$lines = explode("\n",$wk_contents1);
-	$nondeco_wk2 = "<h2>¼öÁ¤ ¹× Ãß°¡µÈ ºÎºĞ Ç¥½Ã</h2><BR>";
+	$nondeco_wk2 = "<h2>ìˆ˜ì • ë° ì¶”ê°€ëœ ë¶€ë¶„ í‘œì‹œ</h2><BR>";
 	for($l=0;$l<count($lines);$l++){
 		$line = $lines[$l];
 		$line = str_replace(" ","",$line);
@@ -1583,7 +1583,7 @@ else if( strcmp( $HTTP_GET_VARS["option"], "diff" )==0 ) { // diff
 	$wk_contents1 = str_replace(" ","",$wk_contents1);
 	$wk_contents1 = str_replace("\r","",$wk_contents1);
 	$wk_contents1 = str_replace("\n","",$wk_contents1);
-	$nondeco_wk2 = $nondeco_wk2."<BR><h2>¼öÁ¤ ÀÌÀü ¹öÀüÀÇ º¯°æ ºÎºĞ</h2><BR>";
+	$nondeco_wk2 = $nondeco_wk2."<BR><h2>ìˆ˜ì • ì´ì „ ë²„ì „ì˜ ë³€ê²½ ë¶€ë¶„</h2><BR>";
 	for($l=0;$l<count($lines2);$l++){
 		$line = $lines2[$l];
 		$line = str_replace(" ","",$line);
@@ -1611,7 +1611,7 @@ fclose( $fp );
 
 // Password processing
 $i = substr($wk_contents,0,5);
-if( strcmp($i,"¾ÏÈ£ ")==0 || strcmp($i,"¾Õ±Û ")==0  || strcmp($i,"´ä±Û ")==0 ) {
+if( strcmp($i,"ì•”í˜¸ ")==0 || strcmp($i,"ì•ê¸€ ")==0  || strcmp($i,"ë‹µê¸€ ")==0 ) {
 	$i = strpos($wk_contents,"\n");
 	$wk_contents = substr($wk_contents,$i+1);
 }
@@ -1644,7 +1644,7 @@ if( strpos($wk_contents,"[IncludeUpdate") != false )
         $include_timestamp  = 0+substr($main_temp,0,$ij);
 	}
 
-	if(strpos($include_title,"ikiSandBox")==1 || strpos($include,"±â¸Ş¸ğ¿Í Å×½ºÆ®")>0) {
+	if(strpos($include_title,"ikiSandBox")==1 || strpos($include,"ê¸°ë©”ëª¨ì™€ í…ŒìŠ¤íŠ¸")>0) {
 	// If it is WikiSandBox, then pass it.
         $main_temp = wkfunc_newest_file_find($include_timestamp);
         $ij = strpos($main_temp,":");
@@ -1661,7 +1661,7 @@ $inc_wk_title = str_replace("\r","",$inc_wk_title);
 $inc_wk_title = str_replace("\n","",$inc_wk_title);
 $inc_wk_date = fgets($fp);
 $inc_wk_firstline = " ".fgets($fp);
-if(strpos($inc_wk_firstline,"¾Õ±Û ")==1 || strpos($inc_wk_firstline,"´ä±Û ")==1)
+if(strpos($inc_wk_firstline,"ì•ê¸€ ")==1 || strpos($inc_wk_firstline,"ë‹µê¸€ ")==1)
 	  $inc_wk_firstline=""; else $inc_wk_firstline = $inc_wk_firstline."\n";
 $inc_wk_contents = $inc_wk_firstline . fread( $fp, filesize( $inc_filename_to_read ) - strlen($inc_wk_title) - strlen($inc_wk_date));
 $inc_wk_contents = str_replace("\r","",$inc_wk_contents);
@@ -1687,7 +1687,7 @@ fclose( $fp );
 
 		// Processing contents
 if(
-strcmp($wk_title,"ÆÄÀÏ ¾÷·Îµå")!=0 && strcmp($wk_title,"ÆÄÀÏ ¾÷·Îµå ¿Ï·á")!=0 && strcmp($wk_title,"°Ë»ö")!=0 && 
+strcmp($wk_title,"íŒŒì¼ ì—…ë¡œë“œ")!=0 && strcmp($wk_title,"íŒŒì¼ ì—…ë¡œë“œ ì™„ë£Œ")!=0 && strcmp($wk_title,"ê²€ìƒ‰")!=0 && 
 strcmp($wk_title,"File Upload")!=0 && strcmp($wk_title,"Upload Completed")!=0 && strcmp($wk_title,"Search")!=0
 ) {
 $wk_contents = str_replace("<","&lt;",$wk_contents);
@@ -1703,12 +1703,12 @@ $css_URL_title_URI,"index.php"));
 
 echo $wk_head;
 echo '<form name=trackback method=post action="http://__">';
-echo 'Æ®·¢¹é º¸³¾ ÁÖ¼Ò <input name=actiontarget type=text size=60 value="'.$HTTP_GET_VARS["target"].'"><BR>';
-echo 'Á¦¸ñ <input name=title type=text value="'.$wk_title.'">';
+echo 'íŠ¸ë™ë°± ë³´ë‚¼ ì£¼ì†Œ <input name=actiontarget type=text size=60 value="'.$HTTP_GET_VARS["target"].'"><BR>';
+echo 'ì œëª© <input name=title type=text value="'.$wk_title.'">';
 echo '<input name=blog_name type=hidden value="'.$wk_first_page_title.'"><br>';
-echo '³»¿ë¿ä¾à <textarea name=excerpt>more...</textarea><BR>';
+echo 'ë‚´ìš©ìš”ì•½ <textarea name=excerpt>more...</textarea><BR>';
 echo '<input name=url type=hidden value="http://'.$css_URL_title."index.php?pagetoread=".urlencode($page_to_read).'">';
-echo '<input name=go value="º¸³»±â" type=button onclick="gotrackback()">';
+echo '<input name=go value="ë³´ë‚´ê¸°" type=button onclick="gotrackback()">';
 echo '</form>';
 echo '<script language="javascript">';
 echo 'function gotrackback(){';
@@ -1725,7 +1725,7 @@ exit(0);
 $converting_back_links = "";
 $tmp_title = str_replace("\r","",$wk_title);
 $tmp_title = str_replace("\n","",$tmp_title);
-if(file_exists("wkctlinks.xml")!=false && strpos($wk_design,"¿ª¸µÅ©µéÇ¥½Ã")>0){
+if(file_exists("wkctlinks.xml")!=false && strpos($wk_design,"ì—­ë§í¬ë“¤í‘œì‹œ")>0){
 	$fp = fopen( "wkctlinks.xml", "r" );
 	fgets($fp); 
 	$tmp_links = fgets($fp); 
@@ -1746,10 +1746,10 @@ if(file_exists("wkctlinks.xml")!=false && strpos($wk_design,"¿ª¸µÅ©µéÇ¥½Ã")>0){
 $wk_design = $wk_head.$wk_contents.$wk_tail;
                         // New line processing
 			// Special Date processing
-$wk_design = str_replace("¸¶Áö¸·º¯°æÀÏ½Ã",$wk_date, $wk_design);
+$wk_design = str_replace("ë§ˆì§€ë§‰ë³€ê²½ì¼ì‹œ",$wk_date, $wk_design);
 $wk_design = str_replace("LastEditedTime",$wk_date, $wk_design);
 			// Backlink processing
-$wk_design = str_replace("¿ª¸µÅ©µéÇ¥½Ã",$converting_back_links,$wk_design);
+$wk_design = str_replace("ì—­ë§í¬ë“¤í‘œì‹œ",$converting_back_links,$wk_design);
 			// Very Special Thing - costomizable
 $wk_design = str_replace("''''''","&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;",$wk_design);
                                         // For no-smok style
@@ -1786,14 +1786,14 @@ $wk_design = str_replace("---]]]<BR>","</font></td></tr></table>",$wk_design);
 		// replay link macro
 if( (strcmp($filename_to_read,"wkct0.txt")==0 || strcmp($HTTP_GET_VARS["pagetoread"],"FIRSTPAGE")==0) && strcmp($include_title,"nothing")!=0)
 	{
-	$wk_design = str_replace("µ¡±Û´Ş±â¸µÅ©","index.php?pagetoedit=".$include_title."&edittype=reply",$wk_design);
+	$wk_design = str_replace("ë§ê¸€ë‹¬ê¸°ë§í¬","index.php?pagetoedit=".$include_title."&edittype=reply",$wk_design);
 	$include_title = str_replace("\r", "", $include_title);
 	$include_title = str_replace("\n", "", $include_title);
 	$wk_design = str_replace("ReplyPageLink","index.php?pagetoedit=".urlencode($include_title)."&edittype=reply",$wk_design);
 	}
 else
 	{
-	$wk_design = str_replace("µ¡±Û´Ş±â¸µÅ©","index.php?pagetoedit=".$wk_title."&edittype=reply",$wk_design);
+	$wk_design = str_replace("ë§ê¸€ë‹¬ê¸°ë§í¬","index.php?pagetoedit=".$wk_title."&edittype=reply",$wk_design);
 	$wk_title = str_replace("\r","",$wk_title);
 	$wk_title = str_replace("\n","",$wk_title);
 	$wk_design = str_replace("ReplyPageLink","index.php?pagetoedit=".urlencode($wk_title)."&edittype=reply",$wk_design);
@@ -1819,7 +1819,7 @@ if( strpos($wk_design,"[LastLink]") != false )
 $css_URL_title_URI = $_SERVER['REQUEST_URI'];
 $css_URL_title_hostname = $GLOBALS['HTTP_HOST'];
 $css_URL_title = $css_URL_title_hostname . substr($css_URL_title_URI, 0, strpos($css_URL_title_URI,"index.php"));
-$wk_design = str_replace("Æ®·¢¹éÁÖ¼ÒÇ¥½Ã", "http://".$css_URL_title."index.php?pagetowrite=".$filename_to_read, $wk_design);
+$wk_design = str_replace("íŠ¸ë™ë°±ì£¼ì†Œí‘œì‹œ", "http://".$css_URL_title."index.php?pagetowrite=".$filename_to_read, $wk_design);
 
 if( strpos($wk_design,"[TableOfContents]") != false )
  {
@@ -2042,7 +2042,7 @@ for($i=0;$i<$j;$i++){
                }
 
 $wk_design = str_replace("==&gt; OTL &lt;==", "<center><img src='emo_otl.jpg'></center>", $wk_design);
-$wk_design = str_replace("==&gt; ¾ıÁ¤´Ì &lt;==", "<center><img src='emo_ejn.jpg'></center>", $wk_design);
+$wk_design = str_replace("==&gt; ì—Œì •ëŠ¬ &lt;==", "<center><img src='emo_ejn.jpg'></center>", $wk_design);
 $wk_design = str_replace("==&gt; ", "<center><font size=6 color=red> ", $wk_design);
 $wk_design = str_replace(" &lt;==", " </center></font>", $wk_design);
 $wk_design = str_replace(" ````"," <font size=5>", $wk_design);
@@ -2101,7 +2101,7 @@ $wk_design = str_replace(" ^ ^"," <img src=\"smile.gif\"> ",$wk_design);
 $wk_design = str_replace(" ^__^"," <img src=\"lol.gif\"> ",$wk_design);
 $wk_design = str_replace("{V}"," <img src=\"checkmark.gif\"> ",$wk_design);
 $wk_design = str_replace("{ok}"," <img src=\"thumbs-up.gif\"> ",$wk_design);
-$wk_design = str_replace("{±×·¯Ãé}"," <img src=\"thumbs-up.gif\"> ",$wk_design);
+$wk_design = str_replace("{ê·¸ëŸ¬ì·Œ}"," <img src=\"thumbs-up.gif\"> ",$wk_design);
 $wk_design = str_replace("{x}"," <img src=\"icon-error.gif\"> ",$wk_design);
 $wk_design = str_replace("{i}"," <img src=\"icon-info.gif\"> ",$wk_design);
 $wk_design = str_replace("\n----<BR>","</P><HR/><P>",$wk_design);
@@ -2111,10 +2111,10 @@ $wk_design = str_replace("!?--TRICK--?!","<img src='me1.jpg' name='mine' onClick
 
 
 		// Hyper Link decoration
-$wk_design = str_replace(" [¾Õ±Û´Ş±â]"," <a href=\"index.php?pagetoedit=".$wk_title."&edittype=reply\">´ä±Û´Ş±â</a>",$wk_design);
-$wk_design = str_replace(" [´ä±Û´Ş±â]"," <a href=\"index.php?pagetoedit=".$wk_title."&edittype=reply\">´ä±Û´Ş±â</a>",$wk_design);
-$wk_design = str_replace("\n[¾Õ±Û´Ş±â]","<a href=\"index.php?pagetoedit=".$wk_title."&edittype=reply\">´ä±Û´Ş±â</a>",$wk_design);
-$wk_design = str_replace("\n[´ä±Û´Ş±â]","<a href=\"index.php?pagetoedit=".$wk_title."&edittype=reply\">´ä±Û´Ş±â</a>",$wk_design);
+$wk_design = str_replace(" [ì•ê¸€ë‹¬ê¸°]"," <a href=\"index.php?pagetoedit=".$wk_title."&edittype=reply\">ë‹µê¸€ë‹¬ê¸°</a>",$wk_design);
+$wk_design = str_replace(" [ë‹µê¸€ë‹¬ê¸°]"," <a href=\"index.php?pagetoedit=".$wk_title."&edittype=reply\">ë‹µê¸€ë‹¬ê¸°</a>",$wk_design);
+$wk_design = str_replace("\n[ì•ê¸€ë‹¬ê¸°]","<a href=\"index.php?pagetoedit=".$wk_title."&edittype=reply\">ë‹µê¸€ë‹¬ê¸°</a>",$wk_design);
+$wk_design = str_replace("\n[ë‹µê¸€ë‹¬ê¸°]","<a href=\"index.php?pagetoedit=".$wk_title."&edittype=reply\">ë‹µê¸€ë‹¬ê¸°</a>",$wk_design);
 
 $j = strlen($wk_design); // .google tag processing
 for($i=0;$i<$j;$i++){
