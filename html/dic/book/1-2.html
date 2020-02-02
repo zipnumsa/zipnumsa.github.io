@@ -14,19 +14,13 @@
 		<!--[if lte IE 8]><link rel="stylesheet" href="../assets/css/ie8.css" /><![endif]-->
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-<script type="text/javascript">
-      $(document).ready(function(){
-         $("#header1").load("header.html #header")
-      });
-</script>    
  </head>
 	<body>
 	
 		<div id="page-wrapper">
 
 				<!-- Header-->		
-    				<div id="header1"></div>
+    				<header role="header" data-include="./header.html"></header>
     	
 			<!-- Main -->
 				<section id="main" class="container">
@@ -141,6 +135,8 @@
 			<script src="../assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="../assets/js/main.js"></script>
+<script src="http://code.jquery.com/jquery.min.js"></script> 
+<script> $(function(){ includeLayout(); }); function includeLayout(){ var includeArea = $('[data-include]'); var self, url; $.each(includeArea, function() { self = $(this); url = self.data("include"); self.load(url, function() { self.removeAttr("data-include"); }); }); } </script>
 
 	</body>
 </html>
