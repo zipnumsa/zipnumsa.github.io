@@ -13,10 +13,9 @@
 		<link rel="stylesheet" href="../assets/css/main.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="../assets/css/ie8.css" /><![endif]-->
 		<script type="text/javascript">
- function msg(){
- document.getElementById("header").innerHTML='<object type="text/html" data="header.html"></object>';
-}
- window.onload=msg;
+$(document).ready(function(){
+    document.getElementById("header1").innerHTML='<object type="text/html" data="header.html"></object>';
+})
 </script>
 	</head>
 	<body>
@@ -25,9 +24,8 @@
 
 				<!-- Header-->		
 
-				<header id="header" name="header">
-				</header>
-				
+				<header id="header1"></header>
+								
 			<!-- Main -->
 				<section id="main" class="container">
 					<header>
