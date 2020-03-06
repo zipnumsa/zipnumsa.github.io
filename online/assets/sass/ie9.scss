@@ -3,21 +3,36 @@
 @import 'libs/mixins';
 
 /*
-	Arcana by HTML5 UP
+	ZeroFour by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 */
 
-/* Header */
+/* Basic */
 
-	#nav {
-		> ul {
-			> li {
-				&.current {
-					&:before {
-						display: none;
-					}
-				}
-			}
-		}
+	.button {
+		background-image: url('images/ie/grad0-20.svg');
+	}
+
+	.box-feature1 header.second {
+		left: 0;
+	}
+
+/* Wrappers	*/
+
+	#footer-wrapper,
+	#header .inner {
+		background-image: url('images/ie/grad0-35.svg');
+	}
+
+/* Nav */
+
+	.dropotron {
+		background-image: url('images/ie/grad35-0.svg');
+	}
+
+/* Mobile UI */
+
+	#titleBar, #navPanel {
+		background-image: url('images/ie/grad0-35.svg');
 	}
