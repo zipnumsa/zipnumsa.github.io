@@ -1,126 +1,121 @@
+<!DOCTYPE html>
 <html>
-<head>
-<style>
+<head lang="en">
+ <meta charset="UTF-8">
+ <style>
+  .gallery{ overflow: hidden; }
 
-* {
-    margin: 0;
-    padding: 0;
-}
-li {
-    list-style: none;
-}
-a {
-    text-decoration: none;
-    color: #000;
-}
-#gallery {
-    width: 350px;
-    margin: 30px auto;
-    border: 1px solid #999;
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
-}
-#gallery h1 {
-    text-align: center;
-}
-#gallery img {
-    border: 1px solid #666;
-}
-#photo {
-    text-align: center;
-}
-#gallery ul {
-    width: 800px;
-    margin: 0 auto;
-    overflow: hidden;
-}
-#photo_list ul li {
-    width: 100px;
-    float: left;
-    text-align: center;
-}
-#photo_list {
-    width: 300px;
-    margin: 10px auto;
-    /*border:1px dashed #000;*/
-    overflow: hidden;
-}
-.btn_wrap {
-    text-align: center;
-}
-.btn_wrap a {
-    font-weight: bold;
-}
 
-</style>
 
-<script>
+  /* ê°¤ëŸ¬ë¦¬ ì´ë¯¸ì§€ */
+  .gallery img{ position:absolute; visibility:hidden; top:0px; left:0px; width:100% }
+  .gallery img.active{ visibility:visible; }
 
-window.onload = function() {
-    var list_zone = document.getElementById("inner_list");
-    var list_a = list_zone.getElementsByTagName("a"); // ½æ³×ÀÏ ÀÌ¹ÌÁö
+â€‹
 
-    for (var i=0; i<list_a.length; i++) { // ½æ³×ÀÏ ÀÌ¹ÌÁö == 8°³
-        // ½æ³×ÀÏ ÀÌ¹ÌÁö Å¬¸¯ÇÏ¸é..
-        list_a[i].onclick = function() {
-            var ph = document.getElementById("photo").children[0]; // Å« ÀÌ¹ÌÁö!
-            //½æ³×ÀÏÀÌ °¡Áö°í ÀÖ´Â Å« ÀÌ¹ÌÁö href°ªÀ» Àü´Ş!
-            ph.src = this.href; // this === list_a
-            return false; // <a>¸¦ Å¬¸¯ÇßÀ» ¶§ ¸µÅ©°¡ µÇÁö ¾Êµµ·Ï!
-        }
+  /* ì´ì „/ë‹¤ìŒ ì‚¬ì§„ ë³´ì—¬ì£¼ê¸° í´ë¦­ ì˜ì—­ */
+  .gallery .left{ position:absolute; top:0px; left:0px; width:20%; height:100%; }
+  .gallery .right{ position:absolute; top:0px; left:80%; width:20%; height:100%; }
+
+â€‹
+
+  /* ì´ì „/ë‹¤ìŒ ì‚¬ì§„ ë³´ì—¬ì£¼ê¸° í´ë¦­ ì˜ì—­ hover ì‹œ ë³´ì—¬ì§€ëŠ” ì¢Œ/ìš° í™”ì‚´í‘œ ì´ë¯¸ì§€ */
+  .gallery .left .left_btn{ position:absolute; width: 0; height: 0; left: 20%; top:50%; margin-top: -10px; visibility:hidden;
+   border-right: 10px solid white; border-top: 10px solid transparent; border-bottom: 10px solid transparent; }
+  .gallery .right .right_btn{ position:absolute; width: 0; height: 0; right: 20%; top:50%; margin-top: -10px; visibility:hidden;
+   border-left: 10px solid white; border-top: 10px solid transparent; border-bottom: 10px solid transparent; }
+  .gallery .left:hover .left_btn{ visibility:visible; }
+  .gallery .right:hover .right_btn{ visibility:visible; }
+  img {max-width:100%;height:auto}
+ </style>
+ <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+ <script>
+  (function($){
+   $.fn.gallery = function(options) {
+
+    var $this = $(this);
+    var $arrImage = $this.children("img");
+    var iGalleryIndex = 0, iGalleryCount = $arrImage.length;
+
+
+
+    // í˜„ì¬ ì„ íƒëœ ì´ë¯¸ì§€ë¥¼ ë³´ì—¬ì¤€ë‹¤.
+    function ShowImage(){
+     $arrImage.each( function(index){
+      if( iGalleryIndex == index ){
+       $(this).addClass("active");
+      }
+      else{
+       $(this).removeClass("active");
+      }
+     });
     }
 
-    var m_num = 0;
 
-    // ´ÙÀ½ ¹öÆ° Å¬¸¯½Ã ÀÌº¥Æ®
-    var n_btn = document.getElementById("next_btn");
-    n_btn.onclick = function() {
-        if (m_num >= list_a.length-3) { // ½æ³×ÀÏ 3°³´Â È­¸é»ó¿¡ ³²¾ÆÀÖ¾î¾ß ÇÔ! // ³¡À¸·Î
-            return false; // º¸ÀÌ´Â ½æ³×ÀÏ 3°³¸¦ Á¦¿ÜÇÏ°í ³¡±îÁö °¡¸é ÀÌº¥Æ® Á¤Áö
-        }
-        m_num++;
-        list_zone.style.marginLeft = -100 * m_num + "px"; // -ÀÌµ¿
-        return false; // <a>¸¦ Å¬¸¯ÇßÀ» ¶§ ¸µÅ©°¡ µÇÁö ¾Êµµ·Ï!
-    }
 
-    // ÀÌÀü ¹öÆ° Å¬¸¯½Ã ÀÌº¥Æ®
-    var b_btn = document.getElementById("before_btn");
-    b_btn.onclick = function() {
-        if (m_num <= 0) { // Ã³À½À¸·Î
-            return false; // º¸ÀÌ´Â ½æ³×ÀÏ 3°³¸¦ Á¦¿ÜÇÏ°í ³¡±îÁö °¡¸é ÀÌº¥Æ® Á¤Áö
-        }
-        m_num--;
-        list_zone.style.marginLeft = -100 * m_num + "px"; // +ÀÌµ¿
-        return false; // <a>¸¦ Å¬¸¯ÇßÀ» ¶§ ¸µÅ©°¡ µÇÁö ¾Êµµ·Ï!
-    }
-};
+    // ì´ì „ ë²„íŠ¼ ì˜ì—­ í´ë¦­ì‹œ, ì´ì „ ì‚¬ì§„ì„ ë³´ì—¬ì¤€ë‹¤.
+    $this.children(".left").click( function(){
+     --iGalleryIndex;
+     if( iGalleryIndex < 0 ) iGalleryIndex = iGalleryCount - 1;
+     ShowImage();
+    });
 
-<script>
+
+
+    // ë‹¤ìŒ ë²„íŠ¼ ì˜ì—­ í´ë¦­ì‹œ, ë‹¤ìŒ ì‚¬ì§„ì„ ë³´ì—¬ì¤€ë‹¤.
+    $this.children(".right").click( function(){
+     ++iGalleryIndex;
+     if( iGalleryIndex >= iGalleryCount ) iGalleryIndex = 0;
+     ShowImage();
+    });
+
+
+
+    ShowImage();
+
+â€‹
+
+    return this;
+   };
+  }(jQuery));
+
+
+
+  $( document ).ready( function()
+  {
+   $(".gallery" ).gallery();
+  } );
+ </script>
 </head>
 <body>
+<!-- ì‚¬ì§„ì— ì í•©í•˜ê²Œ width, height ë¥¼ ì„¤ì •í•´ì•¼ í•œë‹¤. -->
+<div class="gallery" style="position: relative; width:1075px; height: 1517px;">
+ <img src="./img/si001.jpg">
+ <img src="./img/si002.jpg">
+ <img src="./img/si003.jpg">
+ <img src="./img/si004.jpg">
+ <img src="./img/si005.jpg">
+ <img src="./img/si006.jpg">
+ <img src="./img/si007.jpg">
+ <img src="./img/si008.jpg">
+ <img src="./img/si009.jpg">
+ <img src="./img/si010.jpg">
+<img src="./img/si011.jpg">
+<img src="./img/si012.jpg">
 
-<div id="gallery">
-    <h1>µ¿ÇØ¾È °¶·¯¸®</h1>
+â€‹
 
-    <p id="photo">
-        <img src="images/pic_1.jpg" width="320" alt=""/>
-    </p>
+ <!-- ì´ì „ ì‚¬ì§„ ë³´ì—¬ì£¼ê¸° í´ë¦­ ì˜ì—­ -->
+ <div class="left">
+  <div class="left_btn"></div>
+ </div>
 
-    <div id="photo_list">
-        <ul id="inner_list">
-            <li><a href="./img/si001.jpg">
-                <img src="./img/si001.jpg"></a></li>
-            <li><a href="./img/si002.jpg">
-                <img src="./img/si002.jpg"></a></li>
-            <li><a href="./img/si003.jpg">
-                <img src="./img/si003.jpg"></a></li>
-            <li><a href="./img/si004.jpg">
-                <img src="./img/si004.jpg"></a></li>
-</ul>
-    </div>
-    <p class="btn_wrap">
-        <a href="#" id="before_btn">&lt;</a>
-        <a href="#" id="next_btn">&gt;</a>
-    </p>
+ 
+
+<!-- ë‹¤ìŒ ì‚¬ì§„ ë³´ì—¬ì£¼ê¸° í´ë¦­ ì˜ì—­ -->
+ <div class="right">
+  <div class="right_btn"></div>
+ </div>
 </div>
 </body>
-</html>
+</html> 
