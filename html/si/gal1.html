@@ -1,0 +1,291 @@
+<html>
+<head>
+<title>http://www.blueb.co.kr</title>
+<style type="text/css">
+    html {
+        overflow: hidden;
+    }
+    body {
+        margin: 0px;
+        padding: 0px;
+        background: #000;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+    #diapo {
+        position: absolute;
+        left: 0%;
+        top: 10%;
+        width: 100%;
+        height: 80%;
+        background: #000;
+        overflow: hidden;
+    }
+    #slider {
+        position: absolute;
+        width: 100%;
+        height: 80%;
+    }
+    #slider img {
+        border: none;
+        position:absolute;
+        visibility: hidden;
+        filter: alpha(opacity=40);
+        opacity: 0.4;
+    }
+    #button {
+        position: absolute;
+        overflow: hidden;
+    }
+    #legend {
+        position: absolute;
+        font-family: arial, helvetica, verdana, sans-serif;
+        background: #111;
+    }
+    #button span {
+        position:absolute;
+        height: 100%;
+    }
+    #button span:hover {
+        background:#FFF;
+    }
+    .loaded {
+        background: #666;
+        cursor: pointer;
+    }
+    .selected {
+        background: #FFF;
+    }
+    #title {
+        float: left;
+        margin-left: 0.5em;
+        color: #fff;
+    }
+    #txt {
+        float: left;
+        margin: 0.5em;
+        margin-left: 2em;
+        color: #bbb;
+    }
+    #credit {
+        position: absolute;
+        color: #888;
+        font-family: arial;
+        font-size: 0.6em;
+        width:99%;
+        text-align: right;
+        bottom: 2px;
+    }
+</style>
+
+<script type="text/javascript">
+
+id = function(o){return document.getElementById(o);}
+
+position = function(o, css){for(var i in css)o.style[i]=Math.round(css[i])+'px';}
+
+setOpacity = function(o,alpha){
+    if(o.filters)o.filters.alpha.opacity = alpha*100;
+    else o.style.opacity = alpha;
+}
+
+diapo = {
+    N:0,
+    W:0,
+    H:0,
+    image_ratio:4/3,
+    ims:0,
+    imx:[],
+    tit:[],
+    txt:[],
+    thu:0,
+    pos:0,
+    xc:0,
+    xd:0,
+    xm:0,
+    dt:0,
+    xs:0,
+    move:false,
+
+    slide:function(){
+        with(this){
+            // ===== scrolling loop =====
+            xm += xs;
+            xc += (dt*xm*.01);
+            id("slider").style.left = Math.round(xc)+"px";
+            if (xm == 10) xs = -1;
+            if (xm) setTimeout("diapo.slide();", 16);
+            else {
+                // ===== enlighten pic =====
+                for(var i=.5;i<=1;i+=.1)setTimeout("setOpacity(diapo.ims[diapo.pos], "+i+")", 160*i);
+                setTimeout("diapo.move=false", 160);
+            }
+        }
+    },
+
+    cxd:function(p){
+        with(this){
+            // ===== calculates slider position =====
+            if(W/H>image_ratio){
+                wi = Math.round(H*(ims[p].width/ims[p].height));
+                xd = -imx[p]+((W-wi)/2);
+            } else xd = -imx[p];
+            // ===== display text =====
+            thu[p].className = "selected";
+            id("title").innerHTML = tit[p];
+            id("txt").innerHTML = txt[p];
+        }
+    },
+
+    scroll:function(p){
+        with(this){
+            if(move){
+                // ===== already scrolling: queue event =====
+                setTimeout("diapo.scroll("+p+");", 128);
+            } else {
+                if(thu[p].className == "loaded"){
+                    // ===== start scrolling =====
+                    cxd(p);
+                    setOpacity(ims[pos], .4);
+                    thu[pos].className = "loaded";
+                    pos = p;
+                    dt = xd-xc;
+                    xm = 0;
+                    xs = 1;
+                    move = true;
+                    slide();
+                }
+            }
+        }
+    },
+
+    pos_button:function(x,y,w){
+        with(this){
+            // ===== button bar & text positioning =====
+            position(id("button"), {'left':x,'top':y+3,'width':w,'height':H/20});
+            position(id("legend"), {'left':x,'top':y+6+H/20,'width':w,'height':H});
+            position(id("title"), {'fontSize':Math.max(16,H/16)});
+            position(id("txt"), {'fontSize':Math.max(8,H/32)});
+            thu = id("button").getElementsByTagName("span");
+            for(var i=0;i<N;i++){
+                var wi = Math.round(w/N)-3;
+                position(thu[i], {'left':2+i*(wi+3),'width':wi});
+                if(ims[i].complete)thu[i].className = (i==pos)?"selected":"loaded";
+            }
+        }
+    },
+
+    resize:function(){
+        with(diapo){
+            // ===== resize layout =====
+            W=id("slider").offsetWidth;
+            H=id("slider").offsetHeight;
+            var w=0;
+            var h=0;
+            var x=0;
+            for(var i=0;i<N;i++){
+                if(ims[i].complete){
+                    w=ims[i].width;
+                    h=ims[i].height;
+                    ims[i].style.visibility="visible";
+                    setOpacity(ims[i], (i==pos)?1:.4);
+                    if(W/H>image_ratio){
+                        // ===== horizontal centering =====
+                        wi = Math.round(H*(w/h));
+                        position(ims[i], {'left':x,'top':0,'width':wi,'height':H});
+                        imx[i] = x;
+                        x += wi+3;
+                        if(i==0) pos_button((W-wi)/2,H,wi);
+                    } else {
+                        // ===== vertical centering =====
+                        hi = Math.round(W/(w/h));
+                        position(ims[i], {'left':x,'top':(H-hi)/2,'width':W,'height':hi});
+                        imx[i] = x;
+                        x += W+3;
+                        if(i==0) pos_button(0,hi+(H-hi)/2,W);
+                    }
+                }
+                if(xs==0)xc=xd;
+            }
+            // ===== reajust scroll position =====
+            if(!move){
+                cxd(pos);
+                position(id("slider"), {'left':xd});
+            }
+        }
+    },
+
+    images_load:function(){
+        with(this){
+            // ===== loop until all images are loaded =====
+            var M=0;
+            for(var i=0;i<N;i++) if(ims[i].complete) M++;
+            if(!move && ims[0].complete) resize();
+            if(M<N || move) setTimeout("diapo.images_load();", 128);
+        }
+    },
+
+    init:function(){
+        with(this){
+            // ===== images source =====
+            ims = id("slider").getElementsByTagName("img");
+            N = ims.length;
+            // ===== create buttons =====
+            for(var i=0;i<N;i++) {
+                o = document.createElement("span");
+                tit[i] = ims[i].title;
+                txt[i] = ims[i].alt;
+                ims[i].title = "";
+                ims[i].alt = "";
+                o.onmousedown = new Function("diapo.scroll("+i+");");
+                id("button").appendChild(o);
+            }
+            images_load();
+        }
+    }
+}
+
+</script>
+</head>
+
+<body>
+
+<div id="diapo">
+    <div id="slider">
+        <!--이곳에 갤러리 이미지를 포함하세요-->
+        <img src=./img/si001.jpg>
+        <img src=./img/si002.jpg>
+        <img src=./img/si003.jpg>
+        <img src=./img/si004.jpg>
+        <img src=./img/si005.jpg>
+        <img src=./img/si006.jpg>
+        <!--이곳에 갤러리 이미지를 포함하세요-->
+    </div>
+    <div id="button"></div>
+    <div id="legend">
+        <span id="title"></span>
+        <span id="txt"></span>
+    </div>
+</div>
+
+<script type="text/javascript">
+// ===== start script while loading images =====
+function dom_onload() {
+    if(id("slider")) diapo.init(); else setTimeout("dom_onload();", 128);
+}
+dom_onload();
+// ===== window resize event =====
+onresize = diapo.resize;
+// ================================================
+</script>
+
+</body>
+</html>
+
+
+좋아요공감
+공유하기글 요소
+
+
+출처: https://sugame.tistory.com/256 [프로그래밍 저장소]
