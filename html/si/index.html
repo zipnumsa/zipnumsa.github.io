@@ -1,126 +1,101 @@
-<html>
-<head>
-<style>
-
-* {
-    margin: 0;
-    padding: 0;
-}
-li {
-    list-style: none;
-}
-a {
-    text-decoration: none;
-    color: #000;
-}
-#gallery {
-    width: 350px;
-    margin: 30px auto;
-    border: 1px solid #999;
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
-}
-#gallery h1 {
-    text-align: center;
-}
-#gallery img {
-    border: 1px solid #666;
-}
-#photo {
-    text-align: center;
-}
-#gallery ul {
-    width: 800px;
-    margin: 0 auto;
-    overflow: hidden;
-}
-#photo_list ul li {
-    width: 100px;
-    float: left;
-    text-align: center;
-}
-#photo_list {
-    width: 300px;
-    margin: 10px auto;
-    /*border:1px dashed #000;*/
-    overflow: hidden;
-}
-.btn_wrap {
-    text-align: center;
-}
-.btn_wrap a {
-    font-weight: bold;
-}
-
-</style>
-
-<script>
-
-window.onload = function() {
-    var list_zone = document.getElementById("inner_list");
-    var list_a = list_zone.getElementsByTagName("a"); // 썸네일 이미지
-
-    for (var i=0; i<list_a.length; i++) { // 썸네일 이미지 == 8개
-        // 썸네일 이미지 클릭하면..
-        list_a[i].onclick = function() {
-            var ph = document.getElementById("photo").children[0]; // 큰 이미지!
-            //썸네일이 가지고 있는 큰 이미지 href값을 전달!
-            ph.src = this.href; // this === list_a
-            return false; // <a>를 클릭했을 때 링크가 되지 않도록!
-        }
-    }
-
-    var m_num = 0;
-
-    // 다음 버튼 클릭시 이벤트
-    var n_btn = document.getElementById("next_btn");
-    n_btn.onclick = function() {
-        if (m_num >= list_a.length-3) { // 썸네일 3개는 화면상에 남아있어야 함! // 끝으로
-            return false; // 보이는 썸네일 3개를 제외하고 끝까지 가면 이벤트 정지
-        }
-        m_num++;
-        list_zone.style.marginLeft = -100 * m_num + "px"; // -이동
-        return false; // <a>를 클릭했을 때 링크가 되지 않도록!
-    }
-
-    // 이전 버튼 클릭시 이벤트
-    var b_btn = document.getElementById("before_btn");
-    b_btn.onclick = function() {
-        if (m_num <= 0) { // 처음으로
-            return false; // 보이는 썸네일 3개를 제외하고 끝까지 가면 이벤트 정지
-        }
-        m_num--;
-        list_zone.style.marginLeft = -100 * m_num + "px"; // +이동
-        return false; // <a>를 클릭했을 때 링크가 되지 않도록!
-    }
-};
-
-<script>
-</head>
-<body>
-
-<div id="gallery">
-    <h1>동해안 갤러리</h1>
-
-    <p id="photo">
-        <img src="images/pic_1.jpg" width="320" alt=""/>
-    </p>
-
-    <div id="photo_list">
-        <ul id="inner_list">
-            <li><a href="./img/si001.jpg">
-                <img src="./img/si001.jpg"></a></li>
-            <li><a href="./img/si002.jpg">
-                <img src="./img/si002.jpg"></a></li>
-            <li><a href="./img/si003.jpg">
-                <img src="./img/si003.jpg"></a></li>
-            <li><a href="./img/si004.jpg">
-                <img src="./img/si004.jpg"></a></li>
-</ul>
-    </div>
-    <p class="btn_wrap">
-        <a href="#" id="before_btn">&lt;</a>
-        <a href="#" id="next_btn">&gt;</a>
-    </p>
-</div>
-</body>
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="utf-8">
+        <title>Mini Lightbox</title>
+        <meta name="description" content="Prosty lightbox do wyswietlania zdjec w wiekszym rozmiarze, bez uzycia jQuery, bardzo lekki">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/lightbox.min.css">
+    </head>
+    <body>
+        <header>
+            <h1>
+                Mini Lightbox
+            </h1>
+        </header>
+        <main>
+            <section>
+                <h2>
+                    Galeria
+                </h2>
+                <ul>
+                    <li>
+                        <a class="link-photo" data-lightbox="img" href="img/si001.jpg" title="Powieksz zdjecie">
+                            <img src="img/si001.jpg" alt="demo" width="300">
+                        </a>
+                    </li>
+                    <li>
+                        <a class="link-photo" data-lightbox="img" href="img/si002.jpg" title="Powieksz zdjecie">
+                            <img src="img/si003.jpg" alt="demo" width="300">
+                        </a>
+                    </li>
+                    <li>
+                        <a class="link-photo" data-lightbox="img" href="img/si004.jpg" title="Powieksz zdjecie">
+                            <img src="img/si004.jpg" alt="demo">
+                        </a>
+                    </li>
+                    <li>
+                        <a class="link-photo" data-lightbox="img" href="img/si005.jpg" title="Powieksz zdjecie">
+                            <img src="img/si005.jpg" alt="demo">
+                        </a>
+                    </li>
+                    <li>
+                        <a class="link-photo" data-lightbox="img" href="img/si006.jpg" title="Powieksz zdjecie">
+                            <img src="img/si006.jpg" alt="demo">
+                        </a>
+                    </li>
+                    <li>
+                        <a class="link-photo" data-lightbox="img" href="img/si007.jpg" title="Powieksz zdjecie">
+                            <img src="img/si007.jpg" alt="demo">
+                        </a>
+                    </li>
+                    <li>
+                        <a class="link-photo" data-lightbox="img" href="img/si008.jpg" title="Powieksz zdjecie">
+                            <img src="img/si008.jpg" alt="demo">
+                        </a>
+                    </li>
+                    <li>
+                        <a class="link-photo" data-lightbox="img" href="img/si009.jpg" title="Powieksz zdjecie">
+                            <img src="img/si009.jpg" alt="demo">
+                        </a>
+                    </li>
+                    <li>
+                        <a class="link-photo" data-lightbox="img" href="img/si010.jpg" title="Powieksz zdjecie">
+                            <img src="img/si010.jpg" alt="demo">
+                        </a>
+                    </li>
+                    <li>
+                        <a class="link-photo" data-lightbox="img" href="img/si011.jpg" title="Powieksz zdjecie">
+                            <img src="img/si011.jpg" alt="demo">
+                        </a>
+                    </li>
+                    <li>
+                        <a class="link-photo" data-lightbox="img" href="img/si012.jpg" title="Powieksz zdjecie">
+                            <img src="img/si012.jpg" alt="demo">
+                        </a>
+                    </li>
+                    <li>
+                        <a class="link-photo" data-lightbox="img" href="img/si013.jpg" title="Powieksz zdjecie">
+                            <img src="img/si013.jpg" alt="demo">
+                        </a>
+                    </li>
+                    <li>
+                        <a class="link-photo" data-lightbox="img" href="img/si014.jpg" title="Powieksz zdjecie">
+                            <img src="img/si014.jpg" alt="demo">
+                        </a>
+                    </li>
+                </ul>
+            </section>
+        </main>
+        <footer>
+            <span>
+                Copyright &copy; Kamil Kondratowicz
+            </span>
+        </footer>
+        <script src="js/lightbox.min.js"></script>
+        <script>
+            const lb = lightbox();
+        </script>
+    </body>
 </html>
