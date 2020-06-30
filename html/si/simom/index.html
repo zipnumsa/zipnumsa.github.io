@@ -1,6 +1,10 @@
 <html lang="ko">
 <head>
 	<meta charset="utf-8">
+	<style>
+	a{font-size:20pt}
+	img{max-width:100%;height:auto}
+	</style>
 	</head>
 <body oncontextmenu='return false' ondragstart='return false' onselectstart='return false' >
 <script>
@@ -53,13 +57,11 @@ document.onmousedown=ms;
 
 </script>
 <form name=f>
-<a onClick=ck(2)>처음</a> <a onClick=ck(0)>이전</a> <a onClick=ck(1)>다음</a> <a onClick=ck(3)>맨끝</a>
-<input type=text size=2 name=t2 style='border:0'><br>
+<a>시를 누르면 다음 시가 나타납니다. 다른 시를 보려면 아래의 단추를 이용하세요.</a><br>
+<a onClick=ck(2)>처음</a> | <a onClick=ck(0)>이전</a> | <a onClick=ck(1)>다음</a> | <a onClick=ck(3)>맨끝</a>
 <img name=i value=0 src="0.jpg" border=0 title="클릭하시면 다음 시가 나오며, 오른쪽 클릭하시면 이전 시가 나옵니다." onClick="ck(1)"  hspace=5>
 <br clear=all>
-<textarea style='border:0' cols=80 rows=5 name=t>
-시를 클릭하면 다음 시가 나옵니다.
-</textarea><p>
+시 번호를 기억해 두시면 도움이 됩니다→ <input type=text size=2 name=t2 style='border:0'><br>
 </form>
 </body>
 </html>
