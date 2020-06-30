@@ -1,0 +1,9 @@
+{[
+	"./img/si001.jpg",
+	"./img/si002.jpg",
+	"./img/si003.jpg",
+	"./img/si004.jpg",
+	"./img/si005.jpg",
+	"./img/si006.jpg"
+           ]
+}

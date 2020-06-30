@@ -1,81 +1,73 @@
+
+
 <!doctype html>
 <html lang="ko">
 <head>
- <meta charset="utf-8">
- <title>HTML5</title>
- <link href='http://api.mobilis.co.kr/webfonts/css/?fontface=NanumGothicWeb'
-        rel='stylesheet'>
- <style>
-  body { font-family: 'NanumGothicWeb'; }
-  #gallery{
-  border:10px solid #1d0c16;
-  height:300px;
-  width:450px;
-  margin-left:auto;
-  margin-right:auto;
-  overflow:visible;
-  background:#272229;
-  -webkit-box-shadow:#272229 10px 10px 20px;
-  -moz-box-shadow:#272229 10px 10px 20px;
-  box-shadow:#272229 10px 10px 30px;
-  }
-
-  #gallery ul{margin-left:-30px;}
-
-  #gallery ul li{
-  list-style-type:none;
-  display:inline-table;
-  padding:10px;
-  }
-
-  #gallery ul li .pic{
-  -webkit-transition: all 0.6s ease-in-out;
-  opacity:0;
-  visibility:hidden;
-  position:absolute;
-  margin-top:10px;
-  margin-left:-20px;
-  border:1px solid black;
-  -webkit-box-shadow:#272229 2px 2px 10px;
-  -moz-box-shadow:#272229 2px 2px 10px;
-  box-shadow:#272229 2px 2px 10px;
-  }
-
-  #gallery ul li .small:hover{cursor:pointer;}
-
-  #gallery ul li:hover .pic{
-  width:540px;
-  height:762px;
-  opacity:1;
-  visibility:visible;
-  float:right;
-  }
- </style>
- <!--[if IE]>
- <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
- <![endif]-->
+	<meta charset="utf-8">
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width" />
+	
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<script type="text/javascript" src="/js/"></script>
 </head>
-<body>
- <div id="gallery">
-  <ul>
-   <li><img src="./img/si001.jpg" width="120" height="90" border="0" alt="" class="small"><img src="./img/si001.jpg" border="0" alt="" class="pic"></li>
-<li><img src="./img/si002.jpg" width="120" height="90" border="0" alt="" class="small"><img src="./img/si002.jpg" border="0" alt="" class="pic"></li>
-<li><img src="./img/si003.jpg" width="120" height="90" border="0" alt="" class="small"><img src="./img/si003.jpg" border="0" alt="" class="pic"></li>
-<li><img src="./img/si004.jpg" width="120" height="90" border="0" alt="" class="small"><img src="./img/si004.jpg" border="0" alt="" class="pic"></li>
-<li><img src="./img/si005.jpg" width="120" height="90" border="0" alt="" class="small"><img src="./img/si005.jpg" border="0" alt="" class="pic"></li>
-<li><img src="./img/si006.jpg" width="120" height="90" border="0" alt="" class="small"><img src="./img/si006.jpg" border="0" alt="" class="pic"></li>
-<li><img src="./img/si007.jpg" width="120" height="90" border="0" alt="" class="small"><img src="./img/si007.jpg" border="0" alt="" class="pic"></li>
-<li><img src="./img/si008.jpg" width="120" height="90" border="0" alt="" class="small"><img src="./img/si008.jpg" border="0" alt="" class="pic"></li>
-<li><img src="./img/si009.jpg" width="120" height="90" border="0" alt="" class="small"><img src="./img/si009.jpg" border="0" alt="" class="pic"></li>
-<li><img src="./img/si010.jpg" width="120" height="90" border="0" alt="" class="small"><img src="./img/si010.jpg" border="0" alt="" class="pic"></li>
-<li><img src="./img/si011.jpg" width="120" height="90" border="0" alt="" class="small"><img src="./img/si011.jpg" border="0" alt="" class="pic"></li>
-<li><img src="./img/si012.jpg" width="120" height="90" border="0" alt="" class="small"><img src="./img/si012.jpg" border="0" alt="" class="pic"></li>
-<li><img src="./img/si013.jpg" width="120" height="90" border="0" alt="" class="small"><img src="./img/si013.jpg" border="0" alt="" class="pic"></li>
-<li><img src="./img/si014.jpg" width="120" height="90" border="0" alt="" class="small"><img src="./img/si014.jpg" border="0" alt="" class="pic"></li>
-<li><img src="./img/si015.jpg" width="120" height="90" border="0" alt="" class="small"><img src="./img/si015.jpg" border="0" alt="" class="pic"></li>
-<li><img src="./img/si016.jpg" width="120" height="90" border="0" alt="" class="small"><img src="./img/si016.jpg" border="0" alt="" class="pic"></li>
+	<link href="photoswipe.css" type="text/css" rel="stylesheet" />
+	<script type="text/javascript" src="klass.min.js"></script>
+	<script type="text/javascript" src="jquery-1.6.4.min.js"></script>
+	<script type="text/javascript" src="code.photoswipe.jquery-2.1.6.min.js"></script>
+	<script type="text/javascript">
+	window.addEventListener("load", function(){
+		setTimeout(loaded, 100);
+	}, false);
 
-  </ul>
- </div>
+	function loaded(){
+		window.scrollTo(0, 1); // ࠤ ێېL șމ!
+	}
+	</script>
+	<script type="text/javascript">
+		(function(window, $, PhotoSwipe){
+		
+			$(document).ready(function(){
+				
+				var options = {};
+				$("#Gallery a").photoSwipe(options);
+			
+			});
+			
+		}(window, window.jQuery, window.Code.PhotoSwipe));
+		
+	</script>
+
+<body>
+	<div id="wrap">
+		<div class="contents gall_list">
+			
+			<div class="list_wrap">
+				<div class="list_top">
+				</div>
+			
+				<ul id="Gallery" class="gallery">
+				
+				
+					<li><a href="./img/si001.jpg"><img src="./img/si001.jpg" alt="3464684648"></a></li>				
+					<li><a href="./img/si002.jpg"><img src="./img/si002.jpg" alt="3464684648"></a></li>				
+					<li><a href="./img/si003.jpg"><img src="./img/si003.jpg" alt="3464684648"></a></li>				
+					<li><a href="./img/si004.jpg"><img src="./img/si004.jpg" alt="3464684648"></a></li>				
+					<li><a href="./img/si005.jpg"><img src="./img/si005.jpg" alt="3464684648"></a></li>				
+					<li><a href="./img/si006.jpg"><img src="./img/si006.jpg" alt="3464684648"></a></li>				
+					<li><a href="./img/si007.jpg"><img src="./img/si007.jpg" alt="3464684648"></a></li>				
+					<li><a href="./img/si008.jpg"><img src="./img/si008.jpg" alt="3464684648"></a></li>				
+					<li><a href="./img/si009.jpg"><img src="./img/si009.jpg" alt="3464684648"></a></li>				
+					<li><a href="./img/si010.jpg"><img src="./img/si010.jpg" alt="3464684648"></a></li>				
+					<li><a href="./img/si011.jpg"><img src="./img/si011.jpg" alt="3464684648"></a></li>				
+					<li><a href="./img/si012.jpg"><img src="./img/si012.jpg" alt="3464684648"></a></li>				
+					<li><a href="./img/si013.jpg"><img src="./img/si013.jpg" alt="3464684648"></a></li>				
+					<li><a href="./img/si014.jpg"><img src="./img/si014.jpg" alt="3464684648"></a></li>				
+					
+								
+				</ul>
+			
+			</div>
+
+		
+	</div>
 </body>
 </html>
