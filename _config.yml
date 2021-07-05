@@ -59,7 +59,7 @@ algolia:
   application_id         : # YOUR_APPLICATION_ID
   index_name             : # YOUR_INDEX_NAME
   search_only_api_key    : # YOUR_SEARCH_ONLY_API_KEY
-  powered_by             : # true (default), false
+  powered_by             : false # (default), true
 google:
   search_engine_id       : # YOUR_SEARCH_ENGINE_ID
   instant_search         : # false (default), true
@@ -79,10 +79,10 @@ facebook:
 og_image                 : # Open Graph/Twitter default site image
 # For specifying social profiles
 # - https://developers.google.com/structured-data/customize/social-profiles
-#social:
-#  type                   : # Person or Organization (defaults to Person)
-#  name                   : # If the user or organization name differs from the site's name
-#  links: # An array of links to social media profiles
+social:
+  type                   : # Person or Organization (defaults to Person)
+  name                   : # If the user or organization name differs from the site's name
+  links: # An array of links to social media profiles
 
 # Analytics
 analytics:
@@ -96,8 +96,8 @@ analytics:
 author:
   name             : "JANGI.NET"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "HUSH"
-  location         : ""
+  bio              : ""
+  location         : "PUSAN"
   email            :
   links:
     - label: "Email"
