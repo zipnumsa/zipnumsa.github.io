@@ -281,4 +281,4 @@ defaults:
       share: true
       related: true
 
-theme: jekyll-theme-minimal
+theme: jekyll-theme-leap-day
