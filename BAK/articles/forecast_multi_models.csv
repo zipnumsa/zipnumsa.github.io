@@ -1,0 +1,16 @@
+﻿model,year,predicted_count,pi_lo,pi_hi,fit_r2
+linear,2026,61,36,86,0.7661
+linear,2027,62,37,87,0.7661
+linear,2028,64,39,89,0.7661
+linear,2029,66,41,91,0.7661
+linear,2030,68,42,93,0.7661
+exponential,2026,122,44,338,0.9018
+exponential,2027,138,50,381,0.9018
+exponential,2028,155,56,430,0.9018
+exponential,2029,174,62,485,0.9018
+exponential,2030,195,70,547,0.9018
+logistic,2026,88,88,88,0.8926
+logistic,2027,88,88,88,0.8926
+logistic,2028,88,88,88,0.8926
+logistic,2029,88,88,88,0.8926
+logistic,2030,88,88,88,0.8926
